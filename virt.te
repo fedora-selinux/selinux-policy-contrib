@@ -239,6 +239,8 @@ optional_policy(`
 #
 
 allow svirt_tcg_t self:process { execmem execstack };
+allow svirt_tcg_t self:netlink_route_socket r_netlink_socket_perms;
+
 corenet_udp_sendrecv_generic_if(svirt_tcg_t)
 corenet_udp_sendrecv_generic_node(svirt_tcg_t)
 corenet_udp_sendrecv_all_ports(svirt_tcg_t)
@@ -1097,6 +1099,7 @@ files_search_locks(svirt_lxc_domain)
 fs_getattr_all_fs(svirt_lxc_domain)
 fs_list_inotifyfs(svirt_lxc_domain)
 fs_rw_inherited_tmpfs_files(svirt_lxc_domain)
+fs_read_fusefs_files(svirt_lxc_net_t)
 
 auth_dontaudit_read_passwd(svirt_lxc_domain)
 auth_dontaudit_read_login_records(svirt_lxc_domain)
