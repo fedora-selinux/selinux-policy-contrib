@@ -13,6 +13,9 @@ cron_system_entry(mandb_t, mandb_exec_t)
 type mandb_cache_t;
 files_type(mandb_cache_t)
 
+type mandb_lock_t;
+files_lock_file(mandb_lock_t)
+
 ########################################
 #
 # mandb local policy
@@ -25,6 +28,9 @@ manage_dirs_pattern(mandb_t, mandb_cache_t, mandb_cache_t)
 manage_files_pattern(mandb_t, mandb_cache_t, mandb_cache_t)
 manage_lnk_files_pattern(mandb_t, mandb_cache_t, mandb_cache_t)
 files_var_filetrans(mandb_t, mandb_cache_t, { dir file lnk_file })
+
+allow mandb_t mandb_lock_t:file manage_file_perms;
+files_lock_filetrans(mandb_t, mandb_lock_t, file)
 
 kernel_read_system_state(mandb_t)
 
