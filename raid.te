@@ -37,6 +37,7 @@ kernel_read_kernel_sysctls(mdadm_t)
 kernel_request_load_module(mdadm_t)
 kernel_rw_software_raid_state(mdadm_t)
 kernel_getattr_core_if(mdadm_t)
+kernel_setsched(mdadm_t)
 
 # Helper program access
 corecmd_exec_bin(mdadm_t)
