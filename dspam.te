@@ -33,6 +33,7 @@ files_tmp_file(dspam_tmp_t)
 #
 
 allow dspam_t self:capability net_admin;
+allow dspam_t self:tcp_socket { listen accept };
 
 allow dspam_t self:process { signal };
 
