@@ -59,6 +59,7 @@ corenet_tcp_connect_matahari_port(qpidd_t)
 
 dev_read_sysfs(qpidd_t)
 dev_read_urand(qpidd_t)
+dev_read_rand(qpidd_t)
 
 files_read_etc_files(qpidd_t)
 files_read_usr_files(qpidd_t)
