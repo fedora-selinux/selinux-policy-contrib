@@ -75,6 +75,25 @@ interface(`pcscd_manage_pub_pipes',`
 	manage_fifo_files_pattern($1, pcscd_var_run_t, pcscd_var_run_t)
 ')
 
+#######################################
+## <summary>
+##      Read pcscd pid files.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`pcscd_read_pid_files',`
+	gen_require(`
+		type pcscd_var_run_t;
+	')
+
+	files_search_pids($1)
+	read_files_pattern($1, pcscd_var_run_t, pcscd_var_run_t)
+')
+
 ########################################
 ## <summary>
 ##	Connect to pcscd over an unix stream socket.
