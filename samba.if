@@ -71,11 +71,12 @@ interface(`samba_search_pid',`
 #
 interface(`samba_stream_connect_nmbd',`
 	gen_require(`
-		type nmbd_t, nmbd_var_run_t;
+		type nmbd_t, nmbd_var_run_t, samba_var_t;
 	')
 
 	samba_search_pid($1)
 	stream_connect_pattern($1, nmbd_var_run_t, nmbd_var_run_t, nmbd_t)
+	stream_connect_pattern($1, samba_var_t, samba_var_t, nmbd_t)
 ')
 
 ########################################
