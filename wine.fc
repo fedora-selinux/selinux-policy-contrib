@@ -1,3 +1,4 @@
+HOME_DIR/\.wine(/.*)?   gen_context(system_u:object_r:wine_home_t,s0)
 HOME_DIR/cxoffice/bin/wine.+	--	gen_context(system_u:object_r:wine_exec_t,s0)
 
 /opt/cxoffice/bin/wine.*	--	gen_context(system_u:object_r:wine_exec_t,s0)
