@@ -25,6 +25,8 @@ files_type(antivirus_db_t)
 manage_files_pattern(antivirus_domain, antivirus_db_t, antivirus_db_t)
 manage_dirs_pattern(antivirus_domain, antivirus_db_t, antivirus_db_t)
 
+kernel_read_net_sysctls(antivirus_domain)
+
 optional_policy(`
 	amavis_manage_spool_files(antivirus_domain)
 ')
