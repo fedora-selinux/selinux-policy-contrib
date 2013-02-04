@@ -23,6 +23,25 @@ interface(`dmidecode_domtrans',`
 	allow dmidecode_t $1:process sigchld;
 ')
 
+######################################
+## <summary>
+##	Execute dmidecode in the caller domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`dmidecode_exec',`
+	gen_require(`
+		type dmidecode_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	can_exec($1, dmidecode_exec_t)
+')
+
 ########################################
 ## <summary>
 ##	Execute dmidecode in the dmidecode domain, and
