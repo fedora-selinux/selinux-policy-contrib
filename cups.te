@@ -610,6 +610,8 @@ kernel_read_system_state(cups_pdf_t)
 
 files_read_usr_files(cups_pdf_t)
 
+fs_getattr_xattr_fs(cups_pdf_t)
+
 corecmd_exec_shell(cups_pdf_t)
 corecmd_exec_bin(cups_pdf_t)
 
