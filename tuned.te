@@ -24,6 +24,9 @@ logging_log_file(tuned_log_t)
 type tuned_var_run_t;
 files_pid_file(tuned_var_run_t)
 
+type tuned_tmp_t;
+files_tmp_file(tuned_tmp_t)
+
 ########################################
 #
 # tuned local policy
@@ -48,6 +51,10 @@ logging_log_filetrans(tuned_t, tuned_log_t, file, "tuned.log")
 manage_files_pattern(tuned_t, tuned_var_run_t, tuned_var_run_t)
 manage_dirs_pattern(tuned_t, tuned_var_run_t, tuned_var_run_t)
 files_pid_filetrans(tuned_t, tuned_var_run_t, { dir file })
+
+manage_dirs_pattern(tuned_t, tuned_tmp_t, tuned_tmp_t)
+manage_files_pattern(tuned_t, tuned_tmp_t, tuned_tmp_t)
+files_tmp_filetrans(tuned_t, tuned_tmp_t, { dir file })
 
 corecmd_exec_shell(tuned_t)
 corecmd_exec_bin(tuned_t)
