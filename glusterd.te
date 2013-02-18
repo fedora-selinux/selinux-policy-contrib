@@ -34,6 +34,7 @@ files_type(glusterd_var_lib_t);
 #
 
 allow glusterd_t self:capability { net_bind_service sys_admin dac_override chown dac_read_search fowner };
+allow glusterd_t self:capability2 block_suspend;
 allow glusterd_t self:process { setrlimit signal };
 allow glusterd_t self:capability sys_resource;
 
