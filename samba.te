@@ -563,6 +563,7 @@ corenet_tcp_connect_smbd_port(nmbd_t)
 
 dev_getattr_mtrr_dev(nmbd_t)
 dev_read_sysfs(nmbd_t)
+dev_read_rand(nmbd_t)
 dev_read_urand(nmbd_t)
 
 fs_getattr_all_fs(nmbd_t)
