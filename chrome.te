@@ -187,8 +187,6 @@ dev_read_urand(chrome_sandbox_nacl_t)
 dev_read_sysfs(chrome_sandbox_nacl_t)
 dev_rwx_zero(chrome_sandbox_nacl_t)
 
-files_read_etc_files(chrome_sandbox_nacl_t)
-
 init_read_state(chrome_sandbox_nacl_t)
 
 userdom_use_inherited_user_ptys(chrome_sandbox_nacl_t)
