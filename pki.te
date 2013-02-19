@@ -63,6 +63,9 @@ type pki_tomcat_script_t;
 domain_type(pki_tomcat_script_t)
 role system_r types pki_tomcat_script_t;
 
+# FIXME: workaround for F17->F18 upgrade
+init_transition_initrc_to(pki_tomcat_script_t)
+
 optional_policy(`
              unconfined_domain(pki_tomcat_script_t)
 ')
