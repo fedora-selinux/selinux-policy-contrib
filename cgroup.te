@@ -112,6 +112,7 @@ files_read_all_symlinks(cgred_t)
 # /etc/group
 
 fs_write_cgroup_files(cgred_t)
+fs_list_inotifyfs(cgred_t)
 
 auth_use_nsswitch(cgred_t)
 
