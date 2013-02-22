@@ -1,5 +1,28 @@
 policy_module(glusterd, 1.0.0)
 
+## <desc>
+## <p>
+## Allow glusterfsd to modify public files used for public file
+## transfer services.  Files/Directories must be labeled
+## public_content_rw_t.
+## </p>
+## </desc>
+gen_tunable(gluster_anon_write, false)
+
+## <desc>
+## <p>
+## Allow glusterfsd to share any file/directory read only.
+## </p>
+## </desc>
+gen_tunable(gluster_export_all_ro, false)
+
+## <desc>
+## <p>
+## Allow glusterfsd to share any file/directory read/write.
+## </p>
+## </desc>
+gen_tunable(gluster_export_all_rw, true)
+
 ########################################
 #
 # Declarations
