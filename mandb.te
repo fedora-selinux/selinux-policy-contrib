@@ -39,3 +39,5 @@ corecmd_exec_bin(mandb_t)
 domain_use_interactive_fds(mandb_t)
 
 files_read_etc_files(mandb_t)
+
+miscfiles_setattr_man_pages(mandb_t)
