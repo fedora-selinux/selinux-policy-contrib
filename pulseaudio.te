@@ -5,6 +5,8 @@ policy_module(pulseaudio, 1.5.0)
 # Declarations
 #
 
+attribute pulseaudio_tmpfsfile;
+
 type pulseaudio_t;
 type pulseaudio_exec_t;
 init_daemon_domain(pulseaudio_t, pulseaudio_exec_t)

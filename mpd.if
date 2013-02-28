@@ -222,10 +222,6 @@ interface(`mpd_manage_lib_dirs',`
 
 ########################################
 ## <summary>
-<<<<<<< HEAD
-##	All of the rules required to administrate
-##	an mpd environment
-=======
 ##	Connect to mpd over a unix stream socket.
 ## </summary>
 ## <param name="domain">
@@ -243,11 +239,32 @@ interface(`mpd_stream_connect',`
 	stream_connect_pattern($1, mpd_var_run_t, mpd_var_run_t, mpd_t)
 ')
 
+#######################################
+## <summary>
+##      Create, read, write, and delete
+##      mpd user data content.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`mpd_manage_user_data_content',`
+	gen_require(`
+		type mpd_user_data_t;
+	')
+
+	userdom_search_user_home_dirs($1)
+	allow $1 mpd_user_data_t:dir manage_dir_perms;
+	allow $1 mpd_user_data_t:file manage_file_perms;
+	allow $1 mpd_user_data_t:lnk_file manage_lnk_file_perms;
+')
+
 ########################################
 ## <summary>
 ##	All of the rules required to
 ##	administrate an mpd environment.
->>>>>>> 2082a38... Add stream support for mpd
 ## </summary>
 ## <param name="domain">
 ##	<summary>
