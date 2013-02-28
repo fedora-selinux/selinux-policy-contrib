@@ -19,13 +19,15 @@ files_pid_file(fcoemon_var_run_t)
 
 # dac_override
 # /var/rnn/fcm/fcm_clif socket is owned by root
-allow fcoemon_t self:capability { net_admin dac_override };
+allow fcoemon_t self:capability { net_admin net_raw dac_override };
 allow fcoemon_t self:capability { kill };
 
 allow fcoemon_t self:fifo_file rw_fifo_file_perms;
 allow fcoemon_t self:unix_stream_socket create_stream_socket_perms;
 allow fcoemon_t self:netlink_socket create_socket_perms;
 allow fcoemon_t self:netlink_route_socket create_netlink_socket_perms;
+allow fcoemon_t self:self:packet_socket create_socket_perms;
+allow fcoemon_t self:udp_socket create_socket_perms;
 
 manage_dirs_pattern(fcoemon_t, fcoemon_var_run_t, fcoemon_var_run_t)
 manage_files_pattern(fcoemon_t, fcoemon_var_run_t, fcoemon_var_run_t)
@@ -34,7 +36,7 @@ files_pid_filetrans(fcoemon_t, fcoemon_var_run_t, { dir file sock_file })
 
 files_read_etc_files(fcoemon_t)
 
-dev_read_sysfs(fcoemon_t)
+dev_rw_sysfs(fcoemon_t)
 
 logging_send_syslog_msg(fcoemon_t)
 
