@@ -56,6 +56,7 @@ corenet_tcp_connect_amqp_port(nova_domain)
 
 corecmd_exec_bin(nova_domain)
 corecmd_exec_shell(nova_domain)
+corenet_tcp_connect_mysqld_port(nova_domain)
 
 dev_read_urand(nova_domain)
 
@@ -66,7 +67,6 @@ files_read_usr_files(nova_domain)
 libs_exec_ldconfig(nova_domain)
 
 files_read_etc_files(nova_domain)
-
 
 optional_policy(`
 	sysnet_read_config(nova_domain)

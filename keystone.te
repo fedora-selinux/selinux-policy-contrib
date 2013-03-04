@@ -53,7 +53,11 @@ corecmd_exec_shell(keystone_t)
 corenet_tcp_bind_keystone_port(keystone_t)
 corenet_tcp_bind_generic_node(keystone_t)
 
-dev_read_urand(keystone_t)
+corenet_tcp_connect_mysqld_port(keystone_t)
+
+corenet_sendrecv_commplex_main_server_packets(keystone_t)
+corenet_tcp_bind_commplex_main_port(keystone_t)
+corenet_tcp_sendrecv_commplex_main_port(keystone_t)
 
 domain_use_interactive_fds(keystone_t)
 
@@ -61,6 +65,8 @@ files_read_etc_files(keystone_t)
 files_read_usr_files(keystone_t)
 
 auth_use_pam(keystone_t)
+
+dev_read_urand(keystone_t)
 
 libs_exec_ldconfig(keystone_t)
 
