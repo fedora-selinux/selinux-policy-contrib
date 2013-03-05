@@ -80,10 +80,10 @@ dev_rw_sysfs(iscsid_t)
 dev_rw_userio_dev(iscsid_t)
 dev_read_raw_memory(iscsid_t)
 dev_write_raw_memory(iscsid_t)
+dev_read_urand(iscsid_t)
 
 domain_use_interactive_fds(iscsid_t)
 domain_dontaudit_read_all_domains_state(iscsid_t)
-
 
 auth_use_nsswitch(iscsid_t)
 
