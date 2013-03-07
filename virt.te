@@ -1120,18 +1120,22 @@ miscfiles_dontaudit_setattr_fonts_cache_dirs(svirt_lxc_domain)
 miscfiles_read_fonts(svirt_lxc_domain)
 
 optional_policy(`
+	apache_exec_modules(svirt_lxc_domain)
+	apache_read_sys_content(svirt_lxc_domain)
+')
+
+optional_policy(`
 	mta_dontaudit_read_spool_symlinks(svirt_lxc_domain)
 ')
 
 systemd_read_unit_files(svirt_lxc_domain)
 
 optional_policy(`
-	udev_read_pid_files(svirt_lxc_domain)
+	ssh_use_ptys(svirt_lxc_net_t)
 ')
 
 optional_policy(`
-	apache_exec_modules(svirt_lxc_domain)
-	apache_read_sys_content(svirt_lxc_domain)
+	udev_read_pid_files(svirt_lxc_domain)
 ')
 
 virt_lxc_domain_template(svirt_lxc_net)
