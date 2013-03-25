@@ -31,7 +31,8 @@ files_tmp_file(tuned_tmp_t)
 #
 # tuned local policy
 #
-allow tuned_t self:capability { sys_admin sys_nice };
+
+allow tuned_t self:capability { sys_admin sys_nice sys_rawio };
 dontaudit tuned_t self:capability { dac_override sys_tty_config };
 allow tuned_t self:process {  setsched signal };
 allow tuned_t self:fifo_file rw_fifo_file_perms;
