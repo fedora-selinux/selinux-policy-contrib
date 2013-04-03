@@ -95,6 +95,7 @@ type git_user_content_t, git_content;
 userdom_user_home_content(git_user_content_t)
 typealias git_user_content_t alias git_session_content_t;
 
+
 ########################################
 #
 # Git session policy
