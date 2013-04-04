@@ -17,7 +17,11 @@
 ## </param>
 #
 template(`mailman_domain_template', `
-	type mailman_$1_t;
+    gen_require(`
+        attribute mailmain_domain;
+    ')
+   
+	type mailman_$1_t, mailman_domain;
 	domain_type(mailman_$1_t)
 	role system_r types mailman_$1_t;
 

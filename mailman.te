@@ -11,6 +11,7 @@ policy_module(mailman, 1.9.0)
 ## </desc>
 gen_tunable(mailman_use_fusefs, false)
 
+attribute mailman_domain;
 
 mailman_domain_template(cgi)
 
