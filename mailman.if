@@ -18,7 +18,7 @@
 #
 template(`mailman_domain_template', `
     gen_require(`
-        attribute mailmain_domain;
+        attribute mailman_domain;
     ')
    
 	type mailman_$1_t, mailman_domain;
