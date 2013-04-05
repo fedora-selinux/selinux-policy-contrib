@@ -104,6 +104,10 @@ optional_policy(`
 ')
 
 optional_policy(`
+	gnome_read_generic_data_home_dirs(firewalld_t)
+')
+
+optional_policy(`
 	iptables_domtrans(firewalld_t)
 ')
 
