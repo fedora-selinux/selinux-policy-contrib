@@ -161,7 +161,6 @@ interface(`cobbler_dontaudit_rw_log',`
 	gen_require(`
 		type cobbler_var_log_t;
 	')
-
 	dontaudit $1 cobbler_var_log_t:file rw_inherited_file_perms;
 ')
 
