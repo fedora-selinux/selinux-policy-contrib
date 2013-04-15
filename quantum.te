@@ -77,6 +77,20 @@ optional_policy(`
 ')
 
 optional_policy(`
+    mysql_stream_connect(quantum_t)
+    mysql_read_config(quantum_t)
+
+    mysql_tcp_connect(quantum_t)
+')
+
+optional_policy(`
+    postgresql_stream_connect(quantum_t)
+    postgresql_unpriv_client(quantum_t)
+
+    postgresql_tcp_connect(quantum_t)
+')
+
+optional_policy(`
     openvswitch_stream_connect(quantum_t)
 ')
 
