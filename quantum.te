@@ -53,6 +53,7 @@ corecmd_exec_bin(quantum_t)
 
 corenet_tcp_bind_generic_node(quantum_t)
 corenet_tcp_bind_quantum_port(quantum_t)
+corenet_tcp_connect_keystone_port(quantum_t)
 corenet_tcp_connect_mysqld_port(quantum_t)
 corenet_tcp_connect_amqp_port(quantum_t)
 
