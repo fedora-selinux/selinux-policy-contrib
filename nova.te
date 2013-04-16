@@ -53,6 +53,7 @@ manage_dirs_pattern(nova_domain, nova_var_run_t, nova_var_run_t)
 manage_files_pattern(nova_domain, nova_var_run_t, nova_var_run_t)
 
 corenet_tcp_connect_amqp_port(nova_domain)
+corenet_tcp_connect_mysqld_port(nova_domain)
 
 corecmd_exec_bin(nova_domain)
 corecmd_exec_shell(nova_domain)
