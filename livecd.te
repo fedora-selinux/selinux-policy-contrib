@@ -31,5 +31,9 @@ manage_files_pattern(livecd_t, livecd_tmp_t, livecd_tmp_t)
 files_tmp_filetrans(livecd_t, livecd_tmp_t, { dir file })
 
 optional_policy(`
+    rpm_transition_script(livecd_t)
+')
+
+optional_policy(`
 	unconfined_domain_noaudit(livecd_t)
 ')
