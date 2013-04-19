@@ -111,7 +111,8 @@ dev_read_sysfs(mpd_t)
 
 files_read_usr_files(mpd_t)
 
-fs_getattr_tmpfs(mpd_t)
+fs_getattr_all_fs(mpd_t)
+fs_getattr_all_dirs(mpd_t)
 fs_list_inotifyfs(mpd_t)
 fs_rw_anon_inodefs_files(mpd_t)
 
