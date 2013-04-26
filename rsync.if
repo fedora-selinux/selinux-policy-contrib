@@ -201,5 +201,30 @@ interface(`rsync_filetrans_config',`
 		type rsync_etc_t;
 	')
 
-	files_etc_filetrans($1, rsync_etc_t, $2, $3)
+	files_etc_filetrans($1, rsync_etc_t, $2)
+')
+
+########################################
+## <summary>
+##	Create objects in etc directories
+##	with rsync etc type.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
+## </param>
+## <param name="object_class">
+##	<summary>
+##	Class of the object being created.
+##	</summary>
+## </param>
+#
+
+interface(`rsync_etc_filetrans_config',`
+    gen_require(`
+        type rsync_etc_t;
+    ')                        
+
+    files_etc_filetrans($1, rsync_etc_t, $2, $3)
 ')
