@@ -201,5 +201,5 @@ interface(`rsync_filetrans_config',`
 		type rsync_etc_t;
 	')
 
-	files_etc_filetrans($1, rsync_etc_t, $2)
+	files_etc_filetrans($1, rsync_etc_t, $2, $3)
 ')
