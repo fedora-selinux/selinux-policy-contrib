@@ -54,7 +54,7 @@ files_config_file(cobbler_etc_t)
 type cobbler_var_log_t;
 logging_log_file(cobbler_var_log_t)
 
-type cobbler_var_lib_t alias { cobbler_content_t httpd_cobbler_content_t }
+type cobbler_var_lib_t alias { cobbler_content_t httpd_cobbler_content_t };
 files_type(cobbler_var_lib_t)
 
 type cobbler_tmp_t;
