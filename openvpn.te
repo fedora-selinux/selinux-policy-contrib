@@ -143,10 +143,6 @@ tunable_policy(`openvpn_enable_homedirs && use_samba_home_dirs',`
 	fs_read_cifs_files(openvpn_t)
 ')
 
-tunable_policy(`openvpn_enable_homedirs && use_ecryptfs_home_dirs',`
-        fs_read_ecryptfs_files(openvpn_t)
-')
-
 optional_policy(`
 	daemontools_service_domain(openvpn_t, openvpn_exec_t)
 ')
