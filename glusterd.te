@@ -59,13 +59,12 @@ files_type(glusterd_var_lib_t);
 allow glusterd_t self:capability { net_bind_service sys_admin dac_override chown dac_read_search fowner };
 allow glusterd_t self:capability2 block_suspend;
 allow glusterd_t self:process { setrlimit signal };
-allow glusterd_t self:capability sys_resource;
 
 allow glusterd_t self:fifo_file rw_fifo_file_perms;
 allow glusterd_t self:netlink_route_socket r_netlink_socket_perms;
 allow glusterd_t self:tcp_socket create_stream_socket_perms;
 allow glusterd_t self:udp_socket create_socket_perms;
-allow glusterd_t self:unix_stream_socket create_stream_socket_perms;
+allow glusterd_t self:unix_stream_socket { create_stream_socket_perms connectto };
 allow glusterd_t self:unix_dgram_socket create_socket_perms;
 
 manage_dirs_pattern(glusterd_t, glusterd_tmp_t, glusterd_tmp_t)
