@@ -35,4 +35,6 @@ tunable_policy(`antivirus_can_scan_system',`
         files_read_non_security_files(antivirus_domain)
         files_getattr_all_pipes(antivirus_domain)
         files_getattr_all_sockets(antivirus_domain)
+        dev_getattr_all_chr_files(antivirus_domain)
+        dev_getattr_all_blk_files(antivirus_domain)
 ')
