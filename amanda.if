@@ -159,3 +159,28 @@ interface(`amanda_search_var_lib',`
 	files_search_var_lib($1)
 	allow $1 amanda_var_lib_t:dir search_dir_perms;
 ')
+
+#######################################
+## <summary>
+##  Execute amanda server in the amanda domain.
+## </summary>
+## <param name="domain">
+##  <summary>
+##  Domain allowed to transition.
+##  </summary>
+## </param>
+#
+interface(`amanda_systemctl',`
+    gen_require(`
+        type amanda_t;
+        type amanda_unit_file_t;
+    ')
+
+    systemd_exec_systemctl($1)
+    systemd_read_fifo_file_password_run($1)
+    allow $1 amanda_unit_file_t:file read_file_perms;
+    allow $1 amanda_unit_file_t:service manage_service_perms;
+
+    ps_process_pattern($1, amanda_t)
+')
+
