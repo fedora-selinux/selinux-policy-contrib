@@ -372,6 +372,10 @@ optional_policy(`
 	virt_rw_chr_files(cupsd_t)
 ')
 
+optional_policy(`
+    vmware_read_system_config(cupsd_t)
+')
+
 ########################################
 #
 # Configuration daemon local policy
@@ -643,3 +647,4 @@ optional_policy(`
 optional_policy(`
 	udev_read_db(ptal_t)
 ')
+
