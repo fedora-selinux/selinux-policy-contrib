@@ -26,6 +26,13 @@ gen_tunable(mozilla_read_content, false)
 ## </desc>
 gen_tunable(mozilla_plugin_enable_homedirs, false)
 
+## <desc>
+## <p>
+## Allow mozilla plugin to support GPS.
+## </p>
+## </desc>
+gen_tunable(mozilla_plugin_use_gps, false)
+
 #attribute_role mozilla_roles;
 
 type mozilla_t;
@@ -656,4 +663,9 @@ tunable_policy(`mozilla_plugin_enable_homedirs',`
 
 tunable_policy(`selinuxuser_execmod',`
 	userdom_execmod_user_home_files(mozilla_plugin_t)
+')
+
+tunable_policy(`mozilla_plugin_use_gps',`
+    fs_manage_dos_dirs(mozilla_plugin_t)
+    fs_manage_dos_files(mozilla_plugin_t)
 ')
