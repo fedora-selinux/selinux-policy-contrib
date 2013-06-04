@@ -81,6 +81,7 @@ files_read_usr_files(policykit_t)
 files_dontaudit_search_all_mountpoints(policykit_t)
 
 fs_list_inotifyfs(policykit_t)
+fs_getattr_all_fs(policykit_t)
 
 auth_use_nsswitch(policykit_t)
 
