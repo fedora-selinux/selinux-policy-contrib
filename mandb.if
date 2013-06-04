@@ -169,7 +169,7 @@ interface(`mandb_manage_cache_dirs',`
 ##	</summary>
 ## </param>
 #
-interface(`mandb_filetrans_named_home_content',`
+interface(`mandb_named_filetrans_home_files',`
 	gen_require(`
 		type mandb_home_t;
 	')
