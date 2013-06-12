@@ -74,3 +74,65 @@ interface(`iscsi_read_lib_files',`
 	allow $1 iscsi_var_lib_t:dir list_dir_perms;
 	files_search_var_lib($1)
 ')
+
+########################################
+## <summary>
+##	Transition to iscsi named content
+## </summary>
+## <param name="domain">
+##	<summary>
+##      Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`iscsi_filetrans_named_content',`
+    gen_require(`
+        type iscsi_lock_t;
+    ')
+
+    files_lock_filetrans($1, iscsi_lock_t, dir, "iscsi")
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to
+##	administrate an iscsi environment.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`iscsi_admin',`
+	gen_require(`
+		type iscsid_t, iscsi_lock_t, iscsi_log_t;
+		type iscsi_var_lib_t, iscsi_var_run_t, iscsi_tmp_t;
+		type iscsi_unit_file_t;
+	')
+
+	allow $1 iscsid_t:process { ptrace signal_perms };
+	ps_process_pattern($1, iscsid_t)
+
+	systemd_exec_systemctl($1)
+	allow $1 iscsi_unit_file_t:file manage_file_perms;
+	allow $1 iscsi_unit_file_t:service manage_service_perms;
+
+	logging_search_logs($1)
+	admin_pattern($1, iscsi_log_t)
+
+	files_search_locks($1)
+	admin_pattern($1, iscsi_lock_t)
+
+	files_search_var_lib($1)
+	admin_pattern($1, iscsi_var_lib_t)
+
+	files_search_pids($1)
+	admin_pattern($1, iscsi_var_run_t)
+
+	files_search_tmp($1)
+	admin_pattern($1, iscsi_tmp_t)
+')
+>>>>>>> f7a594a... Add iscsi_filetrans_named_content() interface
