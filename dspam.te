@@ -128,7 +128,7 @@ optional_policy(`
 ')
 
 optional_policy(`
-    postfix_rw_inherited_master_pipes(dspam_t)
+    postfix_rw_master_pipes(dspam_t)
 ')
 
 optional_policy(`
