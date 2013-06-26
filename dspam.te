@@ -112,3 +112,25 @@ optional_policy(`
 	    mysql_stream_connect(httpd_dspam_script_t)
 	')
 ')
+
+optional_policy(`
+	mysql_stream_connect(dspam_t)
+	mysql_read_config(dspam_t)
+
+	mysql_tcp_connect(dspam_t)
+')
+
+optional_policy(`
+	postgresql_stream_connect(dspam_t)
+	postgresql_unpriv_client(dspam_t)
+
+	postgresql_tcp_connect(dspam_t)
+')
+
+optional_policy(`
+    postfix_rw_inherited_master_pipes(dspam_t)
+')
+
+optional_policy(`
+    procmail_domtrans(dspam_t)
+')
