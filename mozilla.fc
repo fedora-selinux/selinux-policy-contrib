@@ -12,11 +12,8 @@ HOME_DIR/\.macromedia(/.*)?		gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.gnash(/.*)?			gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.gcjwebplugin(/.*)?		gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.gnashpluginrc		gen_context(system_u:object_r:mozilla_home_t,s0)
-<<<<<<< HEAD
-=======
-HOME_DIR/abc			-- 	gen_context(system_u:object_r:mozilla_home_t,s0)
+HOME_DIR/abc			    -- 	gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.gcjwebplugin(/.*)?	gen_context(system_u:object_r:mozilla_home_t,s0)
->>>>>>> 4b449a1... Label ~/abc as mozilla_home_t, since java apps as plugin want to create it
 HOME_DIR/\.grl-podcasts(/.*)?	gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.icedteaplugin(/.*)?		gen_context(system_u:object_r:mozilla_home_t,s0)
 HOME_DIR/\.icedtea(/.*)?      gen_context(system_u:object_r:mozilla_home_t,s0)
