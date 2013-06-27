@@ -135,4 +135,3 @@ interface(`iscsi_admin',`
 	files_search_tmp($1)
 	admin_pattern($1, iscsi_tmp_t)
 ')
->>>>>>> f7a594a... Add iscsi_filetrans_named_content() interface
