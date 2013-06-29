@@ -36,7 +36,7 @@ init_daemon_domain(fail2ban_client_t, fail2ban_client_exec_t)
 #
 
 allow fail2ban_t self:capability { dac_read_search dac_override sys_tty_config };
-allow fail2ban_t self:process signal;
+allow fail2ban_t self:process { setsched signal };
 allow fail2ban_t self:fifo_file rw_fifo_file_perms;
 allow fail2ban_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow fail2ban_t self:unix_dgram_socket create_socket_perms;
@@ -102,6 +102,15 @@ optional_policy(`
 ')
 
 optional_policy(`
+	dbus_system_bus_client(fail2ban_t)
+	dbus_connect_system_bus(fail2ban_t)
+
+	optional_policy(`
+		firewalld_dbus_chat(fail2ban_t)
+	')
+')
+
+optional_policy(`
 	ftp_read_log(fail2ban_t)
 ')
 
@@ -115,6 +124,10 @@ optional_policy(`
 
 optional_policy(`
 	libs_exec_ldconfig(fail2ban_t)
+')
+
+optional_policy(`
+	rpm_exec(fail2ban_t)
 ')
 
 optional_policy(`
@@ -139,8 +152,12 @@ corecmd_exec_bin(fail2ban_client_t)
 files_read_usr_files(fail2ban_client_t)
 files_search_pids(fail2ban_client_t)
 
-auth_read_passwd(fail2ban_client_t)
+dev_read_urand(fail2ban_client_t)
+dev_read_rand(fail2ban_client_t)
 
+domain_use_interactive_fds(fail2ban_client_t)
+
+auth_read_passwd(fail2ban_client_t)
 
 optional_policy(`
 	gnome_dontaudit_search_config(fail2ban_client_t)
