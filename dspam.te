@@ -60,6 +60,10 @@ corenet_tcp_bind_spamd_port(dspam_t)
 
 auth_use_nsswitch(dspam_t)
 
+kernel_read_system_state(dspam_t)
+
+corecmd_exec_shell(dspam_t)
+
 files_search_spool(dspam_t)
 
 # for RHEL5
@@ -129,6 +133,7 @@ optional_policy(`
 
 optional_policy(`
     postfix_rw_master_pipes(dspam_t)
+    postfix_list_spool(dspam_t)
 ')
 
 optional_policy(`
