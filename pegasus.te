@@ -32,6 +32,8 @@ files_pid_file(pegasus_var_run_t)
 # pegasus openlmi providers
 pegasus_openlmi_domain_template(admin)
 typealias pegasus_openlmi_admin_t alias pegasus_openlmi_service_t;
+typealias pegasus_openlmi_admin_exec_t alias pegasus_openlmi_service_exec_t;
+
 
 pegasus_openlmi_domain_template(account)
 pegasus_openlmi_domain_template(logicalfile)
@@ -43,6 +45,7 @@ files_tmp_file(pegasus_openlmi_storage_tmp_t)
 
 pegasus_openlmi_domain_template(system)
 typealias pegasus_openlmi_system_t alias pegasus_openlmi_networking_t;
+typealias pegasus_openlmi_system_exec_t alias pegasus_openlmi_networking_exec_t;
 pegasus_openlmi_domain_template(unconfined)
 
 #######################################
