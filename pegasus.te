@@ -205,6 +205,7 @@ manage_files_pattern(pegasus_openlmi_storage_t, pegasus_openlmi_storage_tmp_t, p
 manage_dirs_pattern(pegasus_openlmi_storage_t, pegasus_openlmi_storage_tmp_t, pegasus_openlmi_storage_tmp_t)
 files_tmp_filetrans(pegasus_openlmi_storage_tmp_t, pegasus_openlmi_storage_tmp_t, { file dir})
 
+
 kernel_read_all_sysctls(pegasus_openlmi_storage_t)
 
 dev_read_rand(pegasus_openlmi_storage_t)
