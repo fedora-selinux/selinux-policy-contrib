@@ -24,6 +24,9 @@ application_domain(chrome_sandbox_nacl_t, chrome_sandbox_nacl_exec_t)
 role system_r types chrome_sandbox_nacl_t;
 ubac_constrained(chrome_sandbox_nacl_t)
 
+type chrome_sandbox_home_t;
+userdom_user_home_content(chrome_sandbox_home_t)
+
 ########################################
 #
 # chrome_sandbox local policy
