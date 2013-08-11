@@ -1061,6 +1061,7 @@ userdom_read_admin_home_files(virtd_lxc_t)
 
 optional_policy(`
 	dbus_system_bus_client(virtd_lxc_t)
+	init_dbus_chat(virtd_lxc_t)
 ')
 
 optional_policy(`
@@ -1150,6 +1151,7 @@ init_dontaudit_write_utmp(svirt_lxc_domain)
 
 libs_dontaudit_setattr_lib_files(svirt_lxc_domain)
 
+miscfiles_dontaudit_access_check_cert(svirt_lxc_domain)
 miscfiles_dontaudit_setattr_fonts_cache_dirs(svirt_lxc_domain)
 miscfiles_read_fonts(svirt_lxc_domain)
 miscfiles_read_hwdata(svirt_lxc_domain)
@@ -1393,3 +1395,8 @@ type svirt_socket_t;
 role system_r types svirt_socket_t;
 allow virtd_t svirt_socket_t:unix_stream_socket { connectto create_stream_socket_perms };
 allow virt_domain svirt_socket_t:unix_stream_socket { connectto create_stream_socket_perms };
+
+tunable_policy(`virt_transition_userdomain',`
+	userdom_transition(virtd_t)
+	userdom_transition(virtd_lxc_t)
+')
