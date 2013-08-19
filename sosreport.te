@@ -111,6 +111,10 @@ optional_policy(`
 ')
 
 optional_policy(`
+	brctl_domtrans(sosreport_t)
+')
+
+optional_policy(`
 	cups_stream_connect(sosreport_t)
 ')
 
