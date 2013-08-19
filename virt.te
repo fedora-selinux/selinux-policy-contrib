@@ -84,6 +84,13 @@ gen_tunable(virt_use_xserver, false)
 ## </desc>
 gen_tunable(virt_use_usb, true)
 
+## <desc>
+## <p>
+## Allow virtual processes to run as userdomains
+## </p>
+## </desc>
+gen_tunable(virt_transition_userdomain, false)
+
 virt_domain_template(svirt)
 role system_r types svirt_t;
 typealias svirt_t alias qemu_t;
