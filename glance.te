@@ -66,6 +66,7 @@ corecmd_exec_bin(glance_domain)
 corecmd_exec_shell(glance_domain)
 
 dev_read_urand(glance_domain)
+dev_read_sysfs(glance_domain)
 
 files_read_etc_files(glance_domain)
 files_read_usr_files(glance_domain)
