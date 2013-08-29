@@ -149,7 +149,6 @@ optional_policy(`
 ')
 
 optional_policy(`
-optional_policy(`
     rpm_exec(mock_t)
     rpm_manage_cache(mock_t)
     rpm_manage_db(mock_t)
