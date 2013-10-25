@@ -71,6 +71,8 @@ corenet_tcp_connect_jabber_interserver_port(jabberd_t)
 corenet_tcp_connect_jabber_router_port(jabberd_t)
 corenet_tcp_connect_jabber_interserver_port(jabberd_t)
 
+miscfiles_read_certs(jabberd_t)
+
 userdom_dontaudit_use_unpriv_user_fds(jabberd_t)
 userdom_dontaudit_search_user_home_dirs(jabberd_t)
 
