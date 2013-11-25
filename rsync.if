@@ -228,3 +228,24 @@ interface(`rsync_etc_filetrans_config',`
 
     files_etc_filetrans($1, rsync_etc_t, $2, $3)
 ')
+
+########################################
+## <summary>
+##	Transition to rsync named content
+## </summary>
+## <param name="domain">
+##	<summary>
+##      Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`rsync_filetrans_named_content',`
+	gen_require(`
+		type rsync_etc_t;
+        type rsync_var_run_t;
+	')
+
+	files_etc_filetrans($1, rsync_etc_t, file, "rsyncd.cond")
+	files_pid_filetrans($1, rsync_var_run_t, file, "swift_server.lock")
+	files_pid_filetrans($1, rsync_var_run_t, file, "rsyncd.lock")
+')
