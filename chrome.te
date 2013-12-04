@@ -106,11 +106,11 @@ miscfiles_read_fonts(chrome_sandbox_t)
 sysnet_dns_name_resolve(chrome_sandbox_t)
 
 optional_policy(`
-        gnome_rw_inherited_config(chrome_sandbox_t)
-        gnome_read_home_config(chrome_sandbox_t)
-        gnome_cache_filetrans(chrome_sandbox_t, chrome_sandbox_home_t, dir, "chromium")
-        gnome_cache_filetrans(chrome_sandbox_t, chrome_sandbox_home_t, dir, "chrome")
-
+	gnome_read_generic_cache_files(chrome_sandbox_t)
+	gnome_rw_inherited_config(chrome_sandbox_t)
+	gnome_read_home_config(chrome_sandbox_t)
+	gnome_cache_filetrans(chrome_sandbox_t, chrome_sandbox_home_t, dir, "chromium")
+	gnome_cache_filetrans(chrome_sandbox_t, chrome_sandbox_home_t, dir, "chrome")
 ')
 
 optional_policy(`
