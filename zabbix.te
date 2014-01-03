@@ -27,6 +27,9 @@ init_daemon_domain(zabbix_agent_t, zabbix_agent_exec_t)
 type zabbix_agent_initrc_exec_t;
 init_script_file(zabbix_agent_initrc_exec_t)
 
+type zabbixd_var_lib_t;
+files_type(zabbixd_var_lib_t)
+
 type zabbix_log_t;
 logging_log_file(zabbix_log_t)
 
@@ -51,6 +54,11 @@ allow zabbix_t self:unix_stream_socket create_stream_socket_perms;
 allow zabbix_t self:sem create_sem_perms;
 allow zabbix_t self:shm create_shm_perms;
 allow zabbix_t self:tcp_socket create_stream_socket_perms;
+
+manage_dirs_pattern(zabbix_t, zabbix_var_lib_t, zabbix_var_lib_t)
+manage_files_pattern(zabbix_t, zabbix_var_lib_t, zabbix_var_lib_t)
+manage_lnk_files_pattern(zabbix_t, zabbix_var_lib_t, zabbix_var_lib_t)
+files_var_lib_filetrans(zabbix_t, zabbix_var_lib_t, dir, zabbixsrv)
 
 manage_dirs_pattern(zabbix_t, zabbix_log_t, zabbix_log_t)
 manage_files_pattern(zabbix_t, zabbix_log_t, zabbix_log_t)
@@ -84,6 +92,7 @@ corenet_tcp_sendrecv_ftp_port(zabbix_t)
 corenet_sendrecv_http_client_packets(zabbix_t)
 corenet_tcp_connect_http_port(zabbix_t)
 corenet_tcp_sendrecv_http_port(zabbix_t)
+corenet_tcp_connect_smtp_port(zabbix_t)
 
 corenet_sendrecv_zabbix_server_packets(zabbix_t)
 corenet_tcp_bind_zabbix_port(zabbix_t)
