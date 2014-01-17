@@ -86,6 +86,10 @@ optional_policy(`
 ')
 
 optional_policy(`
+    iptables_domtrans(neutron_t)
+')
+
+optional_policy(`
 	mysql_stream_connect(neutron_t)
 	mysql_read_config(neutron_t)
 
