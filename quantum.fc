@@ -8,6 +8,9 @@
 /usr/bin/neutron-ovs-cleanup    --  gen_context(system_u:object_r:neutron_exec_t,s0)
 /usr/bin/neutron-ryu-agent	--	gen_context(system_u:object_r:neutron_exec_t,s0)
 /usr/bin/neutron-server	--	gen_context(system_u:object_r:neutron_exec_t,s0)
+/usr/bin/neutron-lbaas-agent  --      gen_context(system_u:object_r:neutron_exec_t,s0)
+/usr/bin/neutron-rootwrap     --      gen_context(system_u:object_r:neutron_exec_t,s0)
+
 /usr/bin/quantum-dhcp-agent     --  gen_context(system_u:object_r:neutron_exec_t,s0)
 /usr/bin/quantum-l3-agent       --  gen_context(system_u:object_r:neutron_exec_t,s0)
 /usr/bin/quantum-linuxbridge-agent	--	gen_context(system_u:object_r:neutron_exec_t,s0)
