@@ -77,8 +77,6 @@ dev_read_urand(neutron_t)
 dev_mounton_sysfs(neutron_t)
 dev_mount_sysfs_fs(neutron_t)
 
-domain_named_filetrans(neutron_t)
-
 auth_use_nsswitch(neutron_t)
 
 libs_exec_ldconfig(neutron_t)
@@ -87,7 +85,6 @@ logging_send_audit_msgs(neutron_t)
 logging_send_syslog_msg(neutron_t)
 
 sysnet_exec_ifconfig(neutron_t)
-sysnet_filetrans_named_content_ifconfig(neutron_t)
 
 optional_policy(`
 	brctl_domtrans(neutron_t)
