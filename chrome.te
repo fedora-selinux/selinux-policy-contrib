@@ -177,6 +177,10 @@ optional_policy(`
 	sandbox_use_ptys(chrome_sandbox_t)
 ')
 
+optional_policy(`
+    bumblebee_stream_connect(chrome_sandbox_t)
+')
+
 
 ########################################
 #
