@@ -86,6 +86,8 @@ corenet_tcp_bind_couchdb_port(rabbitmq_beam_t)
 corenet_tcp_bind_jabber_client_port(rabbitmq_beam_t)
 corenet_tcp_bind_jabber_interserver_port(rabbitmq_beam_t)
 
+corenet_tcp_bind_amanda_port(rabbitmq_beam_t)
+
 domain_read_all_domains_state(rabbitmq_beam_t)
 
 auth_read_passwd(rabbitmq_beam_t)
