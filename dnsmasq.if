@@ -336,6 +336,23 @@ interface(`dnsmasq_filetrans_named_content',`
 
 ########################################
 ## <summary>
+##	Create dnsmasq pid directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`dnsmasq_read_state',`
+	gen_require(`
+		type dnsmasq_t;
+	')
+    ps_process_pattern($1, dnsmasq_t)
+')
+
+########################################
+## <summary>
 ##	All of the rules required to
 ##	administrate an dnsmasq environment.
 ## </summary>
