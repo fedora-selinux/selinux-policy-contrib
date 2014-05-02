@@ -72,8 +72,6 @@ corenet_tcp_connect_keystone_port(neutron_t)
 corenet_tcp_connect_amqp_port(neutron_t)
 corenet_tcp_connect_mysqld_port(neutron_t)
 
-domain_named_filetrans(neutron_t)
-
 dev_read_sysfs(neutron_t)
 dev_read_urand(neutron_t)
 dev_mounton_sysfs(neutron_t)
