@@ -9,7 +9,7 @@ type neutron_t alias quantum_t;
 type neutron_exec_t alias quantum_exec_t;
 init_daemon_domain(neutron_t, neutron_exec_t)
 
-type neutron_initrc_exec_t alias qauntum_initrc_exec_t;
+type neutron_initrc_exec_t alias quantum_initrc_exec_t;
 init_script_file(neutron_initrc_exec_t)
 
 type neutron_log_t alias quantum_log_t;
@@ -29,13 +29,13 @@ systemd_unit_file(neutron_unit_file_t)
 # Local policy
 #
 
-allow neutron_t self:capability { setgid setuid sys_resource net_admin sys_admin };
+allow neutron_t self:capability { sys_ptrace kill setgid setuid sys_resource net_admin sys_admin net_raw };
 allow neutron_t self:process { setsched setrlimit };
 allow neutron_t self:fifo_file rw_fifo_file_perms;
 allow neutron_t self:key manage_key_perms;
 allow neutron_t self:tcp_socket { accept listen };
-allow neutron_t self:netlink_route_socket rw_netlink_socket_perms;
 allow neutron_t self:unix_stream_socket { accept listen };
+allow neutron_t self:netlink_route_socket rw_netlink_socket_perms;
 
 manage_dirs_pattern(neutron_t, neutron_log_t, neutron_log_t)
 append_files_pattern(neutron_t, neutron_log_t, neutron_log_t)
@@ -53,8 +53,8 @@ files_var_lib_filetrans(neutron_t, neutron_var_lib_t, dir)
 can_exec(neutron_t, neutron_tmp_t)
 
 kernel_read_kernel_sysctls(neutron_t)
-kernel_read_network_state(neutron_t)
 kernel_read_system_state(neutron_t)
+kernel_read_network_state(neutron_t)
 kernel_request_load_module(neutron_t)
 
 corecmd_exec_shell(neutron_t)
@@ -76,6 +76,9 @@ dev_read_sysfs(neutron_t)
 dev_read_urand(neutron_t)
 dev_mounton_sysfs(neutron_t)
 dev_mount_sysfs_fs(neutron_t)
+dev_unmount_sysfs_fs(neutron_t)
+
+files_mounton_non_security(neutron_t)
 
 auth_use_nsswitch(neutron_t)
 
@@ -84,7 +87,9 @@ libs_exec_ldconfig(neutron_t)
 logging_send_audit_msgs(neutron_t)
 logging_send_syslog_msg(neutron_t)
 
-sysnet_domtrans_ifconfig(neutron_t)
+sysnet_exec_ifconfig(neutron_t)
+sysnet_manage_ifconfig_run(neutron_t)
+sysnet_filetrans_named_content_ifconfig(neutron_t)
 
 optional_policy(`
 	brctl_domtrans(neutron_t)
@@ -92,6 +97,9 @@ optional_policy(`
 
 optional_policy(`
     dnsmasq_domtrans(neutron_t)
+    dnsmasq_signal(neutron_t)
+    dnsmasq_kill(neutron_t)
+    dnsmasq_read_state(neutron_t)
 ')
 
 optional_policy(`
@@ -119,4 +127,4 @@ optional_policy(`
 
 optional_policy(`
 	sudo_exec(neutron_t)
-')
+')  
