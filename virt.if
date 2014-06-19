@@ -819,6 +819,60 @@ interface(`virt_transition_svirt',`
 	')
 ')
 
+#######################################
+## <summary>
+##	Execute Sandbox Files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`virt_exec_sandbox_files',`
+	gen_require(`
+		type svirt_sandbox_file_t;
+	')
+
+	can_exec($1, svirt_sandbox_file_t)
+')
+
+#######################################
+## <summary>
+##	Relabel Sandbox File systems
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`virt_relabel_sandbox_filesystem',`
+	gen_require(`
+		type svirt_sandbox_file_t;
+	')
+
+	allow $1 svirt_sandbox_file_t:filesystem { relabelfrom relabelto };
+')
+
+#######################################
+## <summary>
+##	Mounton Sandbox Files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`virt_mounton_sandbox_file',`
+	gen_require(`
+		type svirt_sandbox_file_t;
+	')
+
+	allow $1 svirt_sandbox_file_t:dir_file_class_set mounton;
+')
+
 ########################################
 ## <summary>
 ##	Do not audit attempts to write virt daemon unnamed pipes.
@@ -1179,3 +1233,26 @@ interface(`virt_admin',`
 	virt_stream_connect_svirt($1)
 	virt_stream_connect($1)
 ')
+
+#######################################
+## <summary>
+##	Manage Sandbox Files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`virt_manage_sandbox_files',`
+	gen_require(`
+		type svirt_sandbox_file_t;
+	')
+
+	manage_dirs_pattern($1, svirt_sandbox_file_t, svirt_sandbox_file_t)
+	manage_files_pattern($1, svirt_sandbox_file_t, svirt_sandbox_file_t)
+	manage_fifo_files_pattern($1, svirt_sandbox_file_t, svirt_sandbox_file_t)
+	manage_chr_files_pattern($1, svirt_sandbox_file_t, svirt_sandbox_file_t)
+	manage_lnk_files_pattern($1, svirt_sandbox_file_t, svirt_sandbox_file_t)
+')
+
