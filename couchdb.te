@@ -30,6 +30,10 @@ files_pid_file(couchdb_var_run_t)
 type couchdb_unit_file_t;
 systemd_unit_file(couchdb_unit_file_t)
 
+type couchdb_js_t;
+type couchdb_js_exec_t;
+init_daemon_domain(couchdb_js_t, couchdb_js_exec_t)
+
 ########################################
 #
 # Local policy
@@ -79,15 +83,32 @@ corenet_sendrecv_couchdb_server_packets(couchdb_t)
 corenet_tcp_bind_couchdb_port(couchdb_t)
 corenet_tcp_sendrecv_couchdb_port(couchdb_t)
 
+# disksup tries to monitor the local disks
 fs_getattr_all_files(couchdb_t)
 fs_getattr_all_dirs(couchdb_t)
 fs_getattr_all_fs(couchdb_t)
+files_getattr_all_mountpoints(couchdb_t)
+files_search_all_mountpoints(couchdb_t)
+files_getattr_lost_found_dirs(couchdb_t)
+files_list_var(couchdb_t)
 
 dev_list_sysfs(couchdb_t)
 dev_read_sysfs(couchdb_t)
 dev_read_urand(couchdb_t)
 
-fs_getattr_xattr_fs(couchdb_t)
-
 auth_use_nsswitch(couchdb_t)
+
+domtrans_pattern(couchdb_t, couchdb_js_exec_t, couchdb_js_t)
+
+########################################
+#
+# couchdb_js policy
+#
+
+# this is a complete policy. It processes the javascript
+# ouside the main process, passing data via FIFO.
+allow couchdb_js_t self:process { execmem getsched setsched };
+
+files_read_usr_files(couchdb_js_t)
+miscfiles_read_localization(couchdb_js_t)
 
