@@ -56,6 +56,8 @@ domain_read_all_domains_state(hypervkvp_t)
 
 files_dontaudit_search_home(hypervkvp_t)
 
+auth_use_nsswitch(hypervkvp_t)
+
 logging_send_syslog_msg(hypervkvp_t)
 
 sysnet_dns_name_resolve(hypervkvp_t)
@@ -67,6 +69,7 @@ userdom_dontaudit_search_admin_dir(hypervkvp_t)
 
 optional_policy(`
     netutils_domtrans_ping(hypervkvp_t)
+    netutils_domtrans(hypervkvp_t)
 ')
 
 optional_policy(`
