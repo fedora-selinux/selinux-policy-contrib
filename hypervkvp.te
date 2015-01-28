@@ -51,6 +51,8 @@ dev_read_sysfs(hyperv_domain)
 # hypervkvp local policy
 #
 
+allow hypervkvp_t self:netlink_route_socket rw_netlink_socket_perms;
+
 manage_dirs_pattern(hypervkvp_t, hypervkvp_var_lib_t, hypervkvp_var_lib_t)
 manage_files_pattern(hypervkvp_t, hypervkvp_var_lib_t, hypervkvp_var_lib_t)
 files_var_lib_filetrans(hypervkvp_t, hypervkvp_var_lib_t, dir)
@@ -61,14 +63,18 @@ files_tmp_filetrans(hypervkvp_t, hypervkvp_tmp_t, { file dir })
 
 kernel_read_system_state(hypervkvp_t)
 kernel_read_network_state(hypervkvp_t)
+kernel_read_net_sysctls(hypervkvp_t)
 
 domain_read_all_domains_state(hypervkvp_t)
+
+dev_read_urand(hypervkvp_t)
 
 files_dontaudit_search_home(hypervkvp_t)
 
 auth_use_nsswitch(hypervkvp_t)
 
 logging_send_syslog_msg(hypervkvp_t)
+logging_read_syslog_config(hypervkvp_t)
 
 libs_exec_ldconfig(hypervkvp_t)
 
@@ -77,8 +83,9 @@ modutils_domtrans_insmod(hypervkvp_t)
 sysnet_dns_name_resolve(hypervkvp_t)
 sysnet_domtrans_dhcpc(hypervkvp_t)
 sysnet_domtrans_ifconfig(hypervkvp_t)
-
 sysnet_manage_config(hypervkvp_t)
+sysnet_read_dhcpc_state(hypervkvp_t)
+sysnet_read_dhcp_config(hypervkvp_t)
 sysnet_etc_filetrans_config(hypervkvp_t)
 
 systemd_exec_systemctl(hypervkvp_t)
@@ -86,8 +93,16 @@ systemd_exec_systemctl(hypervkvp_t)
 userdom_dontaudit_search_admin_dir(hypervkvp_t)
 
 optional_policy(`
+    dbus_read_pid_files(hypervkvp_t)
+')
+
+optional_policy(`
     netutils_domtrans_ping(hypervkvp_t)
     netutils_domtrans(hypervkvp_t)
+')
+
+optional_policy(`
+    networkmanager_read_pid_files(hypervkvp_t)
 ')
 
 optional_policy(`
