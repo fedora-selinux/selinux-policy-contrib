@@ -76,6 +76,9 @@ corecmd_exec_shell(nut_upsmon_t)
 corenet_tcp_connect_ups_port(nut_upsmon_t)
 corenet_tcp_connect_generic_port(nut_upsmon_t)
 
+dev_read_rand(nut_upsmon_t)
+dev_read_urand(nut_upsmon_t)
+
 # Creates /etc/killpower
 files_manage_etc_runtime_files(nut_upsmon_t)
 files_etc_filetrans_etc_runtime(nut_upsmon_t, file)
