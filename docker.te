@@ -13,18 +13,15 @@ policy_module(docker, 1.0.0)
 ## </desc>
 gen_tunable(docker_connect_any, false)
 
-## <desc>
-## <p>
-## Allow docker to transition to unconfined containers.
-## </p>
-## </desc>
-gen_tunable(docker_transition_unconfined, false)
-
 type docker_t;
 type docker_exec_t;
 init_daemon_domain(docker_t, docker_exec_t)
 domain_subj_id_change_exemption(docker_t)
 domain_role_change_exemption(docker_t)
+
+type spc_t;
+domain_type(spc_t)
+role system_r types spc_t;
 
 type docker_var_lib_t;
 files_type(docker_var_lib_t)
@@ -78,6 +75,7 @@ userdom_admin_home_dir_filetrans(docker_t, docker_home_t, dir, ".docker")
 
 manage_dirs_pattern(docker_t, docker_config_t, docker_config_t)
 manage_files_pattern(docker_t, docker_config_t, docker_config_t)
+files_etc_filetrans(docker_t, docker_config_t, dir, "docker")
 
 manage_dirs_pattern(docker_t, docker_lock_t, docker_lock_t)
 manage_files_pattern(docker_t, docker_lock_t, docker_lock_t)
@@ -87,6 +85,7 @@ manage_dirs_pattern(docker_t, docker_log_t, docker_log_t)
 manage_files_pattern(docker_t, docker_log_t, docker_log_t)
 manage_lnk_files_pattern(docker_t, docker_log_t, docker_log_t)
 logging_log_filetrans(docker_t, docker_log_t, { dir file lnk_file })
+allow docker_t docker_log_t:dir_file_class_set { relabelfrom relabelto };
 
 manage_dirs_pattern(docker_t, docker_tmp_t, docker_tmp_t)
 manage_files_pattern(docker_t, docker_tmp_t, docker_tmp_t)
@@ -187,6 +186,10 @@ optional_policy(`
 
 optional_policy(`
 	iptables_domtrans(docker_t)
+')
+
+optional_policy(`
+	openvswitch_stream_connect(docker_t)
 ')
 
 #
@@ -296,9 +299,26 @@ tunable_policy(`docker_connect_any',`
     corenet_tcp_sendrecv_all_ports(docker_t)
 ')
 
-tunable_policy(`docker_transition_unconfined',`
-	unconfined_transition(docker_t, docker_share_t)
-	unconfined_transition(docker_t, docker_var_lib_t)
-	unconfined_setsched(docker_t)
-	userdom_attach_admin_tun_iface(docker_t)
+########################################
+#
+# spc local policy
+#
+domain_entry_file(spc_t, docker_share_t)
+domain_entry_file(spc_t, docker_var_lib_t)
+role system_r types spc_t;
+
+domain_entry_file(spc_t, docker_share_t)
+domain_entry_file(spc_t, docker_var_lib_t)
+domtrans_pattern(docker_t, docker_share_t, spc_t)
+domtrans_pattern(docker_t, docker_var_lib_t, spc_t)
+allow docker_t spc_t:process { setsched signal_perms };
+ps_process_pattern(docker_t, spc_t)
+allow docker_t spc_t:socket_class_set { relabelto relabelfrom };
+
+optional_policy(`
+	unconfined_domain_noaudit(spc_t)
+')
+
+optional_policy(`
+	virt_transition_svirt_sandbox(spc_t, system_r)
 ')

@@ -466,7 +466,7 @@ optional_policy(`
 # abrt_dump_oops local policy
 #
 
-allow abrt_dump_oops_t self:capability dac_override;
+allow abrt_dump_oops_t self:capability { ipc_lock dac_override };
 allow abrt_dump_oops_t self:fifo_file rw_fifo_file_perms;
 allow abrt_dump_oops_t self:unix_stream_socket create_stream_socket_perms;
 
@@ -488,6 +488,8 @@ read_files_pattern(abrt_dump_oops_t, abrt_etc_t, abrt_etc_t)
 kernel_read_debugfs(abrt_dump_oops_t)
 kernel_read_kernel_sysctls(abrt_dump_oops_t)
 kernel_read_ring_buffer(abrt_dump_oops_t)
+
+auth_read_passwd(abrt_dump_oops_t)
 
 dev_read_urand(abrt_dump_oops_t)
 dev_read_rand(abrt_dump_oops_t)
@@ -512,12 +514,19 @@ allow abrt_watch_log_t self:unix_stream_socket create_stream_socket_perms;
 
 read_files_pattern(abrt_watch_log_t, abrt_etc_t, abrt_etc_t)
 
+auth_read_passwd(abrt_watch_log_t)
+auth_use_nsswitch(abrt_watch_log_t)
+
 domtrans_pattern(abrt_watch_log_t, abrt_dump_oops_exec_t, abrt_dump_oops_t)
 
 corecmd_exec_bin(abrt_watch_log_t)
 
 logging_read_all_logs(abrt_watch_log_t)
 logging_send_syslog_msg(abrt_watch_log_t)
+
+optional_policy(`
+    gnome_list_home_config(abrt_watch_log_t)
+')
 
 tunable_policy(`abrt_upload_watch_anon_write',`
 	miscfiles_manage_public_files(abrt_upload_watch_t)
