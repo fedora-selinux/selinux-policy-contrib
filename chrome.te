@@ -188,6 +188,9 @@ optional_policy(`
 	sandbox_use_ptys(chrome_sandbox_t)
 ')
 
+optional_policy(`
+    unconfined_dontaudit_write_state(chrome_sandbox_t)
+')
 
 ########################################
 #
