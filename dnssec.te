@@ -65,4 +65,5 @@ optional_policy(`
     networkmanager_stream_connect(dnssec_trigger_t)
     networkmanager_sigchld(dnssec_trigger_t)
 
+    networkmanager_read_conf(dnssec_trigger_t)
 ')
