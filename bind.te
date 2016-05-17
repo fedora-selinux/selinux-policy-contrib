@@ -207,6 +207,10 @@ optional_policy(`
 ')
 
 optional_policy(`
+    ipa_manage_lib(named_t)
+')
+
+optional_policy(`
     ipsec_rw_inherited_pipes(named_t)
 ')
 
