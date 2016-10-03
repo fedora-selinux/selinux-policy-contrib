@@ -108,6 +108,7 @@ optional_policy(`
 
 	optional_policy(`
 		networkmanager_dbus_chat(firewalld_t)
+		networkmanager_stream_connect(firewalld_t)
 	')
 ')
 
