@@ -1,11 +1,9 @@
-selinux-policy for Fedora is a large patch off the mainline.
+selinux-policy-contrib for Fedora is a patch off the contrib mainline.
 
-We have two branches for each Fedora release.
+This is contrib repository for each Fedora realease
 
-$FEDORA_RELEASE-base
 $FEDORA_RELEASE-contrib
 
 If you want to work and send patches against devel Fedora release, please use
 
-git checkout -b rawhide-base -t origin/rawhide-base
-git checkout -b rawhide-contrib -t origin/rawhide-contrib
+git checkout -b rawhide -t origin/rawhide
