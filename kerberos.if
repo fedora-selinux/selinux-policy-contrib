@@ -283,6 +283,8 @@ interface(`kerberos_read_kdc_config',`
 
 ########################################
 ## <summary>
+	manage_files_pattern($1, krb5kdc_conf_t, krb5kdc_conf_t)
+	manage_dirs_pattern($1, krb5kdc_conf_t, krb5kdc_conf_t)
 ##	Read the kerberos kdc configuration file (/etc/krb5kdc.conf).
 ## </summary>
 ## <param name="domain">
