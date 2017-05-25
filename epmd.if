@@ -1,0 +1,12 @@
+interface(`epmd_query',`
+	gen_require(`
+		type epmd_port_t;
+		class tcp_socket { name_bind name_connect };
+	')
+
+	corenet_tcp_bind_epmd_port($1)
+	corenet_tcp_connect_epmd_port($1)
+
+	corenet_sendrecv_epmd_client_packets($1)
+	corenet_tcp_sendrecv_epmd_port($1)
+')
