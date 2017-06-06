@@ -132,7 +132,7 @@ corenet_tcp_bind_dns_port(named_t)
 corenet_udp_bind_dns_port(named_t)
 corenet_tcp_sendrecv_dns_port(named_t)
 corenet_udp_sendrecv_dns_port(named_t)
-
+corenet_udp_bind_whois_port(named_t)
 corenet_tcp_bind_rndc_port(named_t)
 corenet_tcp_sendrecv_rndc_port(named_t)
 
