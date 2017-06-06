@@ -38,6 +38,7 @@ files_pid_filetrans(keepalived_t, keepalived_var_run_t, { file })
 kernel_read_system_state(keepalived_t)
 kernel_read_network_state(keepalived_t)
 kernel_request_load_module(keepalived_t)
+kernel_rw_usermodehelper_state(keepalived_t)
 
 auth_use_nsswitch(keepalived_t)
 
@@ -50,6 +51,7 @@ corenet_tcp_connect_mysqld_port(keepalived_t)
 corenet_tcp_connect_smtp_port(keepalived_t)
 corenet_tcp_connect_snmp_port(keepalived_t)
 corenet_tcp_connect_agentx_port(keepalived_t)
+corenet_tcp_connect_squid_port(keepalived_t)
 
 domain_read_all_domains_state(keepalived_t)
 
