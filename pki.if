@@ -477,3 +477,27 @@ interface(`pki_stream_connect',`
 	files_search_pids($1)
 	stream_connect_pattern($1, pki_common_t, pki_common_t, pki_tomcat_t)
 ')
+
+########################################
+## <summary>
+##	Allow given domain systemctl access on pki_tomcat unit files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
+## </param>
+#
+interface(`pki_systemctl_tomcat',`
+	gen_require(`
+		type httpd_t;
+		type pki_tomcat_unit_file_t;
+	')
+
+	systemd_exec_systemctl($1)
+	init_reload_services($1)
+	allow $1 pki_tomcat_unit_file_t:file read_file_perms;
+	allow $1 pki_tomcat_unit_file_t:service manage_service_perms;
+
+	ps_process_pattern($1, httpd_t)
+')
