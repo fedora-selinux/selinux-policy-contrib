@@ -285,3 +285,28 @@ interface(`pki_read_tomcat_lib_files',`
     read_files_pattern($1, pki_tomcat_var_lib_t, pki_tomcat_var_lib_t)
     read_lnk_files_pattern($1, pki_tomcat_var_lib_t, pki_tomcat_var_lib_t)
 ')
+
+
+########################################
+## <summary>
+##  Allow given domain systemctl access on pki_tomcat unit files.
+## </summary>
+## <param name="domain">
+##  <summary>
+##  Domain allowed to transition.
+##  </summary>
+## </param>
+#
+interface(`pki_systemctl_tomcat',`
+    gen_require(`
+        type httpd_t;
+        type pki_tomcat_unit_file_t;
+    ')
+
+    systemd_exec_systemctl($1)
+    init_reload_services($1)
+    allow $1 pki_tomcat_unit_file_t:file read_file_perms;
+    allow $1 pki_tomcat_unit_file_t:service manage_service_perms;
+
+    ps_process_pattern($1, httpd_t)
+')
