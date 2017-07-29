@@ -1,0 +1,45 @@
+policy_module(gcl,1.0.1)
+
+########################################
+#
+# Declarations
+#
+
+type gcl_t;
+type gcl_exec_t;
+application_domain(gcl_t, gcl_exec_t)
+role system_r types gcl_t;
+
+########################################
+#
+# gcl local policy
+#
+
+## internal communication is often done using fifo and unix sockets.
+allow gcl_t self:fifo_file rw_file_perms;
+allow gcl_t self:unix_stream_socket create_stream_socket_perms;
+
+libs_use_ld_so(gcl_t)
+libs_use_shared_libs(gcl_t)
+
+miscfiles_read_localization(gcl_t)
+
+## The GCL memory management and executable dumping routines manipulate memory
+## in various (usually forbidden) ways.
+allow gcl_t self:process { execmem execheap };
+
+optional_policy(`
+	unconfined_domain(gcl_t)
+')
+
+optional_policy(`
+	gen_require(`
+		type unconfined_t;
+		type unconfined_devpts_t;
+		type unconfined_tty_device_t;
+		role unconfined_r;
+	')
+
+	gcl_run(unconfined_t, unconfined_r, { unconfined_tty_device_t unconfined_devpts_t })
+	allow gcl_t gcl_exec_t:file execmod;
+')
