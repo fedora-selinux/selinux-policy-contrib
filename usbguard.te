@@ -1,0 +1,79 @@
+policy_module(usbguard, 0.1.0)
+
+########################################
+#
+# Declarations
+#
+
+## <desc>
+## <p>
+## Allow usbguard-daemon to write its config (e.g. /etc/usbguard/* without rules.conf)
+## </p>
+## </desc>
+gen_tunable(usbguard_daemon_write_conf, false)
+
+## <desc>
+## <p>
+## Allow usbguard-daemon to write rules (e.g. /etc/usbguard/rules.conf)
+## </p>
+## </desc>
+gen_tunable(usbguard_daemon_write_rules, false)
+
+type usbguard_daemon_t;
+type usbguard_daemon_exec_t;
+init_daemon_domain(usbguard_daemon_t, usbguard_daemon_exec_t)
+permissive usbguard_daemon_t;
+
+type usbguard_daemon_initrc_exec_t;
+init_script_file(usbguard_daemon_initrc_exec_t)
+
+type usbguard_daemon_unit_file_t;
+systemd_unit_file(usbguard_daemon_unit_file_t)
+
+type usbguard_t;
+type usbguard_exec_t;
+application_domain(usbguard_t, usbguard_exec_t)
+
+type usbguard_conf_t;
+files_config_file(usbguard_conf_t)
+
+type usbguard_log_t;
+logging_log_file(usbguard_log_t)
+
+type usbguard_rules_t;
+files_config_file(usbguard_rules_t)
+
+type usbguard_tmpfs_t;
+files_tmpfs_file(usbguard_tmpfs_t)
+
+
+
+########################################
+#
+# Local policy
+#
+
+allow usbguard_daemon_t self:capability { chown fowner };
+allow usbguard_daemon_t self:netlink_kobject_uevent_socket { bind create setopt };
+
+auth_read_passwd(usbguard_daemon_t)
+
+dev_list_sysfs(usbguard_daemon_t)
+dev_rw_sysfs(usbguard_daemon_t)
+
+read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_conf_t)
+read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_rules_t)
+
+manage_files_pattern(usbguard_daemon_t, usbguard_tmpfs_t, usbguard_tmpfs_t)
+fs_tmpfs_filetrans(usbguard_daemon_t, usbguard_tmpfs_t, file)
+
+manage_files_pattern(usbguard_daemon_t, usbguard_log_t, usbguard_log_t)
+logging_log_filetrans(usbguard_daemon_t, usbguard_log_t, { file dir })
+
+tunable_policy(`usbguard_daemon_write_rules',`
+	rw_files_pattern(usbguard_daemon_t, usbguard_conf_t, usbguard_rules_t)
+')
+
+tunable_policy(`usbguard_daemon_write_conf',`
+	rw_files_pattern(usbguard_daemon_t, usbguard_conf_t, usbguard_conf_t)
+')
