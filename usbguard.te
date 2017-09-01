@@ -8,16 +8,20 @@ policy_module(usbguard, 0.1.0)
 ## <desc>
 ## <p>
 ## Allow usbguard-daemon to write its config (e.g. /etc/usbguard/* without rules.conf)
+## Disabling this requires usbguard >0.7.0
 ## </p>
 ## </desc>
-gen_tunable(usbguard_daemon_write_conf, false)
+gen_tunable(usbguard_daemon_write_conf, true)
 
 ## <desc>
 ## <p>
 ## Allow usbguard-daemon to write rules (e.g. /etc/usbguard/rules.conf)
+## Enabled by default because a major usecase is to allow or reject
+## devices as a normal user with a desktop applet which talks to the
+## daemon with IPC.
 ## </p>
 ## </desc>
-gen_tunable(usbguard_daemon_write_rules, false)
+gen_tunable(usbguard_daemon_write_rules, true)
 
 type usbguard_daemon_t;
 type usbguard_daemon_exec_t;
@@ -61,7 +65,10 @@ auth_read_passwd(usbguard_daemon_t)
 dev_list_sysfs(usbguard_daemon_t)
 dev_rw_sysfs(usbguard_daemon_t)
 
+list_dirs_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_conf_t)
 read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_conf_t)
+dontaudit usbguard_daemon_t usbguard_conf_t:file write;
+
 read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_rules_t)
 
 manage_files_pattern(usbguard_daemon_t, usbguard_tmpfs_t, usbguard_tmpfs_t)
@@ -77,3 +84,5 @@ tunable_policy(`usbguard_daemon_write_rules',`
 tunable_policy(`usbguard_daemon_write_conf',`
 	rw_files_pattern(usbguard_daemon_t, usbguard_conf_t, usbguard_conf_t)
 ')
+
+
