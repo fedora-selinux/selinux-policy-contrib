@@ -11,7 +11,7 @@ policy_module(usbguard, 0.1.0)
 ## Disabling this requires usbguard >0.7.0
 ## </p>
 ## </desc>
-gen_tunable(usbguard_daemon_write_conf, true)
+gen_tunable(usbguard_daemon_write_conf, false)
 
 ## <desc>
 ## <p>
@@ -23,20 +23,16 @@ gen_tunable(usbguard_daemon_write_conf, true)
 ## </desc>
 gen_tunable(usbguard_daemon_write_rules, true)
 
-type usbguard_daemon_t;
-type usbguard_daemon_exec_t;
-init_daemon_domain(usbguard_daemon_t, usbguard_daemon_exec_t)
-permissive usbguard_daemon_t;
-
-type usbguard_daemon_initrc_exec_t;
-init_script_file(usbguard_daemon_initrc_exec_t)
-
-type usbguard_daemon_unit_file_t;
-systemd_unit_file(usbguard_daemon_unit_file_t)
-
 type usbguard_t;
 type usbguard_exec_t;
-application_domain(usbguard_t, usbguard_exec_t)
+init_daemon_domain(usbguard_t, usbguard_exec_t)
+permissive usbguard_t;
+
+type usbguard_initrc_exec_t;
+init_script_file(usbguard_initrc_exec_t)
+
+type usbguard_unit_file_t;
+systemd_unit_file(usbguard_unit_file_t)
 
 type usbguard_conf_t;
 files_config_file(usbguard_conf_t)
@@ -50,6 +46,8 @@ files_config_file(usbguard_rules_t)
 type usbguard_tmpfs_t;
 files_tmpfs_file(usbguard_tmpfs_t)
 
+type usbguard_var_run_t;
+files_pid_file(usbguard_var_run_t)
 
 
 ########################################
@@ -57,32 +55,36 @@ files_tmpfs_file(usbguard_tmpfs_t)
 # Local policy
 #
 
-allow usbguard_daemon_t self:capability { chown fowner };
-allow usbguard_daemon_t self:netlink_kobject_uevent_socket { bind create setopt };
+allow usbguard_t self:capability { chown fowner };
+allow usbguard_t self:netlink_kobject_uevent_socket { bind create setopt };
 
-auth_read_passwd(usbguard_daemon_t)
+auth_read_passwd(usbguard_t)
 
-dev_list_sysfs(usbguard_daemon_t)
-dev_rw_sysfs(usbguard_daemon_t)
+dev_list_sysfs(usbguard_t)
+dev_rw_sysfs(usbguard_t)
 
-list_dirs_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_conf_t)
-read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_conf_t)
-dontaudit usbguard_daemon_t usbguard_conf_t:file write;
+list_dirs_pattern(usbguard_t,usbguard_conf_t,usbguard_conf_t)
+read_files_pattern(usbguard_t,usbguard_conf_t,usbguard_conf_t)
+dontaudit usbguard_t usbguard_conf_t:file write;
 
-read_files_pattern(usbguard_daemon_t,usbguard_conf_t,usbguard_rules_t)
+read_files_pattern(usbguard_t,usbguard_conf_t,usbguard_rules_t)
 
-manage_files_pattern(usbguard_daemon_t, usbguard_tmpfs_t, usbguard_tmpfs_t)
-fs_tmpfs_filetrans(usbguard_daemon_t, usbguard_tmpfs_t, file)
+manage_dirs_pattern(usbguard_t, usbguard_var_run_t, usbguard_var_run_t)
+manage_files_pattern(usbguard_t, usbguard_var_run_t, usbguard_var_run_t)
+files_pid_filetrans(usbguard_t, usbguard_var_run_t, file)
 
-manage_files_pattern(usbguard_daemon_t, usbguard_log_t, usbguard_log_t)
-logging_log_filetrans(usbguard_daemon_t, usbguard_log_t, { file dir })
+manage_files_pattern(usbguard_t, usbguard_tmpfs_t, usbguard_tmpfs_t)
+fs_tmpfs_filetrans(usbguard_t, usbguard_tmpfs_t, file)
+
+manage_files_pattern(usbguard_t, usbguard_log_t, usbguard_log_t)
+logging_log_filetrans(usbguard_t, usbguard_log_t, { file dir })
+
+logging_send_syslog_msg(usbguard_t)
 
 tunable_policy(`usbguard_daemon_write_rules',`
-	rw_files_pattern(usbguard_daemon_t, usbguard_conf_t, usbguard_rules_t)
+	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_rules_t)
 ')
 
 tunable_policy(`usbguard_daemon_write_conf',`
-	rw_files_pattern(usbguard_daemon_t, usbguard_conf_t, usbguard_conf_t)
+	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_conf_t)
 ')
-
-
