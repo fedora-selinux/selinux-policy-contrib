@@ -26,7 +26,6 @@ gen_tunable(usbguard_daemon_write_rules, true)
 type usbguard_t;
 type usbguard_exec_t;
 init_daemon_domain(usbguard_t, usbguard_exec_t)
-permissive usbguard_t;
 
 type usbguard_unit_file_t;
 systemd_unit_file(usbguard_unit_file_t)
