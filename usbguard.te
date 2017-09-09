@@ -80,8 +80,7 @@ logging_log_filetrans(usbguard_t, usbguard_log_t, { file dir })
 
 logging_send_syslog_msg(usbguard_t)
 
-allow usbguard_dbus_t usbguard_t:unix_stream_socket connectto;
-allow usbguard_dbus_t usbguard_tmpfs_t:file { read write open };
+usbguard_ipc_access(usbguard_dbus_t)
 
 tunable_policy(`usbguard_daemon_write_rules',`
 	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_rules_t)

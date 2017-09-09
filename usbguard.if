@@ -1,0 +1,20 @@
+########################################
+## <summary>
+##      Allow the specified domain to access the usbguard ipc.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+## <rolecap/>
+#
+interface(`usbguard_ipc_access',`
+        gen_require(`
+                type usbguard_t;
+                type usbguard_tmpfs_t;
+        ')
+
+        allow $1 usbguard_t:unix_stream_socket connectto;
+        allow $1 usbguard_tmpfs_t:file { read write open };
+')
