@@ -77,6 +77,7 @@ logging_log_filetrans(usbguard_t, usbguard_log_t, { file dir })
 logging_send_syslog_msg(usbguard_t)
 
 dbus_system_domain(usbguard_t, usbguard_exec_t)
+usbguard_ipc_access(usbguard_t)
 
 tunable_policy(`usbguard_daemon_write_rules',`
 	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_rules_t)
