@@ -45,10 +45,6 @@ files_tmpfs_file(usbguard_tmpfs_t)
 type usbguard_var_run_t;
 files_pid_file(usbguard_var_run_t)
 
-type usbguard_dbus_t;
-type usbguard_dbus_exec_t;
-dbus_system_domain(usbguard_dbus_t, usbguard_dbus_exec_t)
-
 ########################################
 #
 # Local policy
@@ -80,7 +76,7 @@ logging_log_filetrans(usbguard_t, usbguard_log_t, { file dir })
 
 logging_send_syslog_msg(usbguard_t)
 
-usbguard_ipc_access(usbguard_dbus_t)
+dbus_system_domain(usbguard_t, usbguard_exec_t)
 
 tunable_policy(`usbguard_daemon_write_rules',`
 	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_rules_t)
