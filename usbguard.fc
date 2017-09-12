@@ -5,4 +5,4 @@
 /usr/sbin/usbguard-daemon                 -- gen_context(system_u:object_r:usbguard_exec_t,s0)
 /usr/sbin/usbguard-dbus                   -- gen_context(system_u:object_r:usbguard_exec_t,s0)
 /var/log/usbguard(/.*)?                      gen_context(system_u:object_r:usbguard_log_t,s0)
-/var/run/usbguard.pid                     -- gen_context(system_u:object_r:usbguard_var_run_t,s0)
+/var/run/usbguard.*                       -- gen_context(system_u:object_r:usbguard_var_run_t,s0)
