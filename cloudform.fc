@@ -20,3 +20,4 @@
 /var/log/iwhd\.log.*		--		gen_context(system_u:object_r:iwhd_log_t,s0)
 
 /var/run/iwhd\.pid               --      gen_context(system_u:object_r:iwhd_var_run_t,s0)
+/var/run/cloud-init(/.*)?      gen_context(system_u:object_r:cloud_init_var_run_t,s0)

@@ -28,6 +28,9 @@ logging_log_file(deltacloudd_log_t)
 type deltacloudd_var_run_t;
 files_pid_file(deltacloudd_var_run_t)
 
+type cloud_init_var_run_t;
+files_pid_file(cloud_init_var_run_t)
+
 type deltacloudd_tmp_t;
 files_tmp_file(deltacloudd_tmp_t)
 
@@ -67,6 +70,12 @@ miscfiles_read_certs(cloudform_domain)
 allow cloud_init_t self:capability { fowner chown fsetid dac_read_search  };
 
 allow cloud_init_t self:udp_socket create_socket_perms;
+
+manage_files_pattern(cloud_init_t, cloud_init_var_run_t, cloud_init_var_run_t)
+manage_dirs_pattern(cloud_init_t, cloud_init_var_run_t, cloud_init_var_run_t)
+manage_lnk_files_pattern(cloud_init_t, cloud_init_var_run_t, cloud_init_var_run_t)
+files_pid_filetrans(cloud_init_t, cloud_init_var_run_t, { file dir })
+sysnet_filetrans_config_fromdir(cloud_init_t, cloud_init_var_run_t, file, "enabled")
 
 manage_files_pattern(cloud_init_t, cloud_init_tmp_t, cloud_init_tmp_t)
 manage_dirs_pattern(cloud_init_t, cloud_init_tmp_t, cloud_init_tmp_t)

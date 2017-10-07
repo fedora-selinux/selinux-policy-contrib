@@ -96,9 +96,9 @@ optional_policy(`
 ')
 
 optional_policy(`
-	rpc_manage_nfs_state_data_dir(ganesha_t)
+    rpc_manage_nfs_state_data_dir(ganesha_t)
     rpc_read_nfs_state_data(ganesha_t)
-	rpcbind_stream_connect(ganesha_t)
+    rpcbind_stream_connect(ganesha_t)
 ')
 
 tunable_policy(`ganesha_use_fusefs',`
@@ -106,4 +106,27 @@ tunable_policy(`ganesha_use_fusefs',`
     fs_manage_fusefs_files(ganesha_t)
     fs_read_fusefs_symlinks(ganesha_t)
     fs_getattr_fusefs(ganesha_t)
+')
+
+tunable_policy(`nfs_export_all_rw',`
+	dev_getattr_all_blk_files(ganesha_t)
+	dev_getattr_all_chr_files(ganesha_t)
+
+	fs_manage_noxattr_dirs(ganesha_t)
+	fs_manage_noxattr_fs_files(ganesha_t)
+	files_manage_non_security_dirs(ganesha_t)
+	files_manage_non_security_files(ganesha_t)
+')
+
+tunable_policy(`nfs_export_all_ro',`
+	dev_getattr_all_blk_files(ganesha_t)
+	dev_getattr_all_chr_files(ganesha_t)
+
+	files_getattr_all_pipes(ganesha_t)
+	files_getattr_all_sockets(ganesha_t)
+
+	fs_list_noxattr_fs(ganesha_t)
+	fs_read_noxattr_fs_files(ganesha_t)
+	fs_read_noxattr_fs_symlinks(ganesha_t)
+	files_read_non_security_files(ganesha_t)
 ')
