@@ -80,5 +80,6 @@ optional_policy(`
 ')
 
 optional_policy(`
+    sssd_read_public_files(tlp_t)
     sssd_stream_connect(tlp_t)
 ')
