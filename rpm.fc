@@ -67,6 +67,13 @@ ifdef(`distro_redhat', `
 /var/run/yum.*			--	gen_context(system_u:object_r:rpm_var_run_t,s0)
 /var/run/PackageKit(/.*)?		gen_context(system_u:object_r:rpm_var_run_t,s0)
 
+# (rpm-)ostree related stuff
+# https://github.com/ostreedev/ostree/pull/1079
+# https://github.com/projectatomic/rpm-ostree/pull/959#issuecomment-325780234
+/usr/lib/ostree-boot(/.*)?	gen_context(system_u:object_r:usr_t,s0)
+/usr/lib/modules(/.*)/vmlinuz         -- 	gen_context(system_u:object_r:usr_t,s0)
+/usr/lib/modules(/.*)/initramfs.img   --	gen_context(system_u:object_r:usr_t,s0)
+
 # SuSE
 ifdef(`distro_suse', `
 /usr/bin/online_update		--	gen_context(system_u:object_r:rpm_exec_t,s0)
