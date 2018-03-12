@@ -31,7 +31,7 @@ auth_use_nsswitch(ejabberd_t)
 corecmd_exec_bin(ejabberd_t)
 corecmd_exec_shell(ejabberd_t)
 
-epmd_query(rabbitmq_t)
+epmd_query(ejabberd_t)
 
 corenet_tcp_bind_generic_node(ejabberd_t)
 corenet_tcp_bind_generic_port(ejabberd_t)
