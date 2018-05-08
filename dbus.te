@@ -236,6 +236,10 @@ optional_policy(`
     unconfined_server_domtrans(system_dbusd_t)
 ')
 
+optional_policy(`
+        tabrmd_rw_inherited_unix_stream_sockets(system_dbusd_t)
+')
+
 ########################################
 #
 # system_bus_type rules
