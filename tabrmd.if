@@ -1,0 +1,38 @@
+## <summary>policy for tpm2-abrmd</summary>
+
+########################################
+## <summary>
+##	Use and inherit tabrmd file descriptors.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`tabrmd_use_fds',`
+	gen_require(`
+		type tabrmd_t;
+	')
+
+	allow $1 tabrmd_t:fd use;
+')
+
+########################################
+## <summary>
+##	Read and write inherited tabrmd unix stream sockets.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`tabrmd_rw_inherited_unix_stream_sockets',`
+	gen_require(`
+		type tabrmd_t;
+	')
+
+        tabrmd_use_fds($1)
+	allow $1 tabrmd_t:unix_stream_socket { read write };
+')
