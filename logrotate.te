@@ -23,6 +23,11 @@ gen_tunable(logrotate_use_nfs, false)
 ## </desc>
 gen_tunable(logrotate_read_inside_containers, false)
 
+# For running sudo in RabbitMQ if installed
+gen_require(`
+    class passwd rootok;
+    class passwd passwd;
+')
 
 type logrotate_t;
 domain_type(logrotate_t)
@@ -356,6 +361,19 @@ optional_policy(`
 	tunable_policy(`logrotate_read_inside_containers',`
 		virt_read_sandbox_files(logrotate_t)
 	')
+')
+
+optional_policy(`
+	epmd_query(logrotate_t)
+')
+
+optional_policy(`
+	# Required for proper logrotation using rabbitmqctl as a post-rotate
+	# script. See rhbz#1413775 for further details.
+	rabbitmq_admin(logrotate_t)
+	selinux_compute_access_vector(logrotate_t)
+	corenet_tcp_connect_rabbitmq_port(logrotate_t)
+	allow logrotate_t self:passwd { passwd rootok };
 ')
 
 #######################################
