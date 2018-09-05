@@ -31,12 +31,12 @@ auth_use_nsswitch(ejabberd_t)
 corecmd_exec_bin(ejabberd_t)
 corecmd_exec_shell(ejabberd_t)
 
-corenet_tcp_bind_epmd_port(ejabberd_t)
+epmd_query(ejabberd_t)
+
 corenet_tcp_bind_generic_node(ejabberd_t)
 corenet_tcp_bind_generic_port(ejabberd_t)
 corenet_tcp_bind_jabber_client_port(ejabberd_t)
 corenet_tcp_bind_jabber_interserver_port(ejabberd_t)
-corenet_tcp_connect_epmd_port(ejabberd_t)
 corenet_tcp_connect_generic_port(ejabberd_t)
 corenet_tcp_connect_jabber_interserver_port(ejabberd_t)
 
