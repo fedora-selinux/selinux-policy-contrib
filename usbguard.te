@@ -1,0 +1,88 @@
+policy_module(usbguard, 0.1.0)
+
+########################################
+#
+# Declarations
+#
+
+## <desc>
+## <p>
+## Allow usbguard-daemon to write its config (e.g. /etc/usbguard/* without rules.conf)
+## Disabling this requires usbguard >0.7.0
+## </p>
+## </desc>
+gen_tunable(usbguard_daemon_write_conf, false)
+
+## <desc>
+## <p>
+## Allow usbguard-daemon to write rules (e.g. /etc/usbguard/rules.conf)
+## Enabled by default because a major usecase is to allow or reject
+## devices as a normal user with a desktop applet which talks to the
+## daemon with IPC.
+## </p>
+## </desc>
+gen_tunable(usbguard_daemon_write_rules, true)
+
+type usbguard_t;
+type usbguard_exec_t;
+init_daemon_domain(usbguard_t, usbguard_exec_t)
+
+type usbguard_unit_file_t;
+systemd_unit_file(usbguard_unit_file_t)
+
+type usbguard_conf_t;
+files_config_file(usbguard_conf_t)
+
+type usbguard_log_t;
+logging_log_file(usbguard_log_t)
+
+type usbguard_rules_t;
+files_config_file(usbguard_rules_t)
+
+type usbguard_tmpfs_t;
+files_tmpfs_file(usbguard_tmpfs_t)
+
+type usbguard_var_run_t;
+files_pid_file(usbguard_var_run_t)
+
+########################################
+#
+# Local policy
+#
+
+allow usbguard_t self:capability { chown fowner };
+allow usbguard_t self:netlink_kobject_uevent_socket { bind create setopt read };
+
+auth_read_passwd(usbguard_t)
+
+dev_list_sysfs(usbguard_t)
+dev_rw_sysfs(usbguard_t)
+
+list_dirs_pattern(usbguard_t,usbguard_conf_t,usbguard_conf_t)
+read_files_pattern(usbguard_t,usbguard_conf_t,usbguard_conf_t)
+dontaudit usbguard_t usbguard_conf_t:file write;
+
+read_files_pattern(usbguard_t,usbguard_conf_t,usbguard_rules_t)
+
+manage_dirs_pattern(usbguard_t, usbguard_var_run_t, usbguard_var_run_t)
+manage_files_pattern(usbguard_t, usbguard_var_run_t, usbguard_var_run_t)
+files_pid_filetrans(usbguard_t, usbguard_var_run_t, file)
+
+manage_files_pattern(usbguard_t, usbguard_tmpfs_t, usbguard_tmpfs_t)
+fs_tmpfs_filetrans(usbguard_t, usbguard_tmpfs_t, file)
+
+manage_files_pattern(usbguard_t, usbguard_log_t, usbguard_log_t)
+logging_log_filetrans(usbguard_t, usbguard_log_t, { file dir })
+
+logging_send_syslog_msg(usbguard_t)
+
+dbus_system_domain(usbguard_t, usbguard_exec_t)
+usbguard_ipc_access(usbguard_t)
+
+tunable_policy(`usbguard_daemon_write_rules',`
+	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_rules_t)
+')
+
+tunable_policy(`usbguard_daemon_write_conf',`
+	rw_files_pattern(usbguard_t, usbguard_conf_t, usbguard_conf_t)
+')
