@@ -43,6 +43,7 @@ dev_rw_sysfs(boltd_t)
 
 files_mmap_usr_files(boltd_t)
 fs_getattr_tmpfs(boltd_t)
+fs_getattr_xattr_fs(boltd_t)
 
 logging_send_syslog_msg(boltd_t)
 logging_stream_connect_syslog(boltd_t)
