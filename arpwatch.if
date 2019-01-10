@@ -217,7 +217,7 @@ interface(`arpwatch_admin',`
 ##	</summary>
 ## </param
 #
-interface(`arpwatch_home_dir_filetrans',`
+interface(`arpwatch_data_filetrans',`
 	gen_require(`
 		type arpwatch_data_t;
 	')

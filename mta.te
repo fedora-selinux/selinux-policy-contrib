@@ -121,7 +121,7 @@ optional_policy(`
 ')
 
 optional_policy(`
-	arpwatch_home_dir_filetrans(system_mail_t, mail_home_rw_t, dir, ".esmtp_queue")
+	arpwatch_data_filetrans(system_mail_t, mail_home_rw_t, dir, ".esmtp_queue")
 ')
 
 optional_policy(`
