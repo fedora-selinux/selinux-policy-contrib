@@ -248,8 +248,8 @@ optional_policy(`
 #Red Hat bug 1627075
 optional_policy(`
 	tunable_policy(`cron_logrotate_transition_disabled',`
-                cron_system_entry(logrotate_t, logrotate_exec_t)
-        ')
+		cron_system_entry(logrotate_t, logrotate_exec_t)
+	')
 	cron_search_spool(logrotate_t)
 ')
 
