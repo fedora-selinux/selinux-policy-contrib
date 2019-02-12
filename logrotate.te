@@ -23,6 +23,13 @@ gen_tunable(logrotate_use_nfs, false)
 ## </desc>
 gen_tunable(logrotate_read_inside_containers, false)
 
+## <desc>
+## <p>
+## Disable cron-logrotate transition 
+## </p>
+## </desc>
+gen_tunable(cron_logrotate_transition_disabled, false)
+
 
 type logrotate_t;
 domain_type(logrotate_t)
@@ -239,7 +246,10 @@ optional_policy(`
 ')
 
 optional_policy(`
-	cron_system_entry(logrotate_t, logrotate_exec_t)
+        #Red Hat bug 1627075
+	tunable_policy(`cron_logrotate_transition_disabled',`
+                cron_system_entry(logrotate_t, logrotate_exec_t)
+        ')
 	cron_search_spool(logrotate_t)
 ')
 
