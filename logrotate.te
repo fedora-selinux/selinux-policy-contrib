@@ -253,6 +253,9 @@ optional_policy(`
 	tunable_policy(`cron_logrotate_transition_disabled',`
 		cron_system_entry(logrotate_t, logrotate_exec_t)
 	')
+')
+
+optional_policy(`
 	cron_search_spool(logrotate_t)
 ')
 
