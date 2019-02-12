@@ -238,9 +238,6 @@ optional_policy(`
 
 optional_policy(`
 	callweaver_exec(logrotate_t)
-')
-
-optional_policy(`
 	callweaver_stream_connect(logrotate_t)
 ')
 
