@@ -43,6 +43,13 @@ gen_tunable(mozilla_plugin_use_bluejeans, false)
 
 ## <desc>
 ## <p>
+## Allow mozilla plugin to use samba shares.
+## </p>
+## </desc>
+gen_tunable(mozilla_plugin_use_samba, false)
+
+## <desc>
+## <p>
 ## Allow confined web browsers to read home directory content
 ## </p>
 ## </desc>
@@ -754,6 +761,10 @@ tunable_policy(`mozilla_plugin_use_bluejeans',`
     corenet_tcp_connect_commplex_main_port(mozilla_plugin_t)
     corenet_dontaudit_udp_bind_all_ports(mozilla_plugin_t)
     corenet_udp_bind_all_unreserved_ports(mozilla_plugin_t)
+')
+
+tunable_policy(`mozilla_plugin_use_samba',`
+    samba_manage_share_files(mozilla_plugin_t)
 ')
 
 tunable_policy(`mozilla_plugin_bind_unreserved_ports',`
