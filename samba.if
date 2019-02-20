@@ -440,6 +440,26 @@ interface(`samba_read_share_files',`
 
 ########################################
 ## <summary>
+##	Allow the specified domain to manage samba's shares
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`samba_manage_share_files',`
+	gen_require(`
+		type samba_share_t;
+	')
+
+	allow $1 samba_share_t:filesystem getattr;
+	manage_dirs_pattern($1, samba_share_t, samba_share_t)
+	manage_files_pattern($1, samba_share_t, samba_share_t)
+')
+
+########################################
+## <summary>
 ##	Allow the specified domain to search
 ##	samba /var directories.
 ## </summary>
