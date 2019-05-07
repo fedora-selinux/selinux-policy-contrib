@@ -142,6 +142,24 @@ interface(`tlp_manage_pid_files',`
 
 ########################################
 ## <summary>
+##	Transition to tlp named content
+## </summary>
+## <param name="domain">
+##	<summary>
+##      Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`tlp_filetrans_named_content',`
+	gen_require(`
+		type tlp_var_run_t;
+	')
+
+	files_pid_filetrans($1, tlp_var_run_t, dir, "tlp")
+')
+
+########################################
+## <summary>
 ##	All of the rules required to administrate
 ##	an tlp environment
 ## </summary>
