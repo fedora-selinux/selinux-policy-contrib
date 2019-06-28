@@ -107,3 +107,22 @@ interface(`cyrus_admin',`
 	files_list_pids($1)
 	admin_pattern($1, cyrus_var_run_t)
 ')
+
+########################################
+## <summary>
+##	Delete the cyrus tmp.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`cyrus_delete_tmp',`
+	gen_require(`
+		type cyrus_tmp_t;
+	')
+
+	files_search_tmp($1)
+	allow $1 cyrus_tmp_t:file unlink;
+')
