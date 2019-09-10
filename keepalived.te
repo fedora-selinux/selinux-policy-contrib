@@ -75,6 +75,8 @@ dev_read_urand(keepalived_t)
 
 modutils_domtrans_kmod(keepalived_t)
 
+init_signal(keepalived_t)
+
 logging_send_syslog_msg(keepalived_t)
 
 allow keepalived_t keepalived_tmp_t:file { create_file_perms write_file_perms };
@@ -111,6 +113,8 @@ tunable_policy(`keepalived_connect_any',`
 #
 # keepalived_unconfined_script_script_t local policy
 #
+
+allow keepalived_t keepalived_unconfined_script_t:process { sigkill signal };
 
 optional_policy(`
 	type keepalived_unconfined_script_t;
