@@ -114,14 +114,14 @@ tunable_policy(`keepalived_connect_any',`
 # keepalived_unconfined_script_script_t local policy
 #
 
-allow keepalived_t keepalived_unconfined_script_t:process { sigkill signal };
-
 optional_policy(`
 	type keepalived_unconfined_script_t;
 	domain_type(keepalived_unconfined_script_t)
 
 	domain_entry_file(keepalived_unconfined_script_t, keepalived_unconfined_script_exec_t)
 	role system_r types keepalived_unconfined_script_t;
+
+    allow keepalived_t keepalived_unconfined_script_t:process { sigkill signal };
 
 	domtrans_pattern(keepalived_t, keepalived_unconfined_script_exec_t, keepalived_unconfined_script_t)
 
