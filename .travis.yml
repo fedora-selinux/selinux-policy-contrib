@@ -7,7 +7,7 @@ services:
 
 before_install:
     - cd ../
-    - git clone https://github.com/fedora-selinux/selinux-policy.git
+    - git clone --branch f31 https://github.com/fedora-selinux/selinux-policy.git
     - git clone https://github.com/containers/container-selinux.git
     - cp selinux-policy-contrib/* selinux-policy/policy/modules/contrib/
     - cp container-selinux/container.* selinux-policy/policy/modules/contrib/
