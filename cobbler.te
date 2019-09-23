@@ -131,6 +131,8 @@ term_use_console(cobblerd_t)
 
 auth_use_nsswitch(cobblerd_t)
 
+apache_search_config(cobblerd_t)
+
 logging_send_syslog_msg(cobblerd_t)
 
 miscfiles_read_localization(cobblerd_t)
