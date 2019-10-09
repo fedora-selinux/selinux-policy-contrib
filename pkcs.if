@@ -92,7 +92,7 @@ interface(`pkcs_stream_connect',`
 #
 interface(`pkcs_manage_var_lib',`
 	gen_require(`
-		type pkcs_var_lib_t;
+		type pkcs_slotd_var_lib_t;
 	')
 
 	files_search_var_lib($1)

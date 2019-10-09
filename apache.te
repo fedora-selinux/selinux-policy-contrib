@@ -1831,6 +1831,6 @@ optional_policy(`
     tunable_policy(`httpd_use_opencryptoki',`
         dev_rw_crypto(httpd_passwd_t)
         pkcs_manage_lock(httpd_passwd_t)
-        pkcs_use_openscryptoki(httpd_t)
+        pkcs_use_opencryptoki(httpd_t)
     ')
 ')
