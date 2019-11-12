@@ -30,7 +30,7 @@ miscfiles_etc_filetrans_localization(timedatex_t)
 systemd_timedated_status(timedatex_t)
 
 optional_policy(`
-    chronyd_service_status(timedatex_t)
+    chronyd_systemctl(timedatex_t)
 ')
 
 optional_policy(`
