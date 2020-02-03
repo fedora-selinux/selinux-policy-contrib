@@ -112,6 +112,11 @@ template(`dbus_role_template',`
 	tunable_policy(`deny_ptrace',`',`
 		allow $3 $1_dbusd_t:process ptrace;
 	')
+	
+        # session systemd
+        userdom_user_tmp_filetrans($3, session_dbusd_tmp_t, dir, "systemd")
+        userdom_user_tmp_filetrans($3, session_dbusd_tmp_t, sock_file, "bus")
+        allow $3 session_dbusd_tmp_t:sock_file { create unlink };
 
 	# cjp: this seems very broken
 	corecmd_bin_domtrans($1_dbusd_t, $1_t)
@@ -212,6 +217,7 @@ interface(`dbus_session_client',`
 interface(`dbus_session_bus_client',`
 	gen_require(`
 		attribute session_bus_type;
+		type session_dbusd_tmp_t;
 		class dbus send_msg;
 	')
 
@@ -220,6 +226,8 @@ interface(`dbus_session_bus_client',`
 
 	# For connecting to the bus
 	allow $1 session_bus_type:unix_stream_socket connectto;
+	
+	stream_connect_pattern($1, session_dbusd_tmp_t, session_dbusd_tmp_t, session_bus_type)
 
 	allow session_bus_type $1:process sigkill;
 ')
@@ -765,6 +773,26 @@ interface(`dbus_manage_session_tmp_dirs',`
 
 	manage_dirs_pattern($1, session_dbusd_tmp_t, session_dbusd_tmp_t)
 ')
+
+########################################
+## <summary>
+##      Manage session_dbusd tmp files.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`dbus_manage_session_tmp_files',`
+        gen_require(`
+                type session_dbusd_tmp_t;
+        ')
+
+       manage_files_pattern($1, session_dbusd_tmp_t, session_dbusd_tmp_t)
+       allow $1 session_dbusd_tmp_t:sock_file unlink;
+')
+
 
 ########################################
 ## <summary>
