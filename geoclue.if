@@ -20,6 +20,25 @@ interface(`geoclue_domtrans',`
 	domtrans_pattern($1, geoclue_exec_t, geoclue_t)
 ')
 
+######################################
+## <summary>
+##      Execute geoclue in the caller domain.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`geoclue_exec',`
+        gen_require(`
+                type geoclue_exec_t;
+        ')
+
+        corecmd_search_bin($1)
+        can_exec($1, geoclue_exec_t)
+')
+
 ########################################
 ## <summary>
 ##	Search geoclue lib directories.
