@@ -34,6 +34,8 @@ kernel_read_network_state(openfortivpn_t)
 
 can_exec(openfortivpn_t, openfortivpn_exec_t)
 
+corecmd_exec_shell(openfortivpn_t)
+
 # No standard port for SSLVPN
 corenet_all_recvfrom_unlabeled(openfortivpn_t)
 corenet_tcp_connect_all_ports(openfortivpn_t)
