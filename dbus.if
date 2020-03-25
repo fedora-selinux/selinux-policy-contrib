@@ -768,6 +768,24 @@ interface(`dbus_manage_session_tmp_dirs',`
 
 ########################################
 ## <summary>
+##      Read session_dbusd tmp links.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`dbus_read_session_tmp_lnk_files',`
+        gen_require(`
+                type session_dbusd_tmp_t;
+        ')
+
+	read_lnk_files_pattern($1, session_dbusd_tmp_t, session_dbusd_tmp_t)
+')
+
+########################################
+## <summary>
 ## Allow systemctl dbus services
 ## </summary>
 ## <param name="domain">
