@@ -1,3 +1,5 @@
+HOME_DIR/\.cups(/.*)?		gen_context(system_u:object_r:cups_home_t,s0)
+/root/\.cups(/.*)?		gen_context(system_u:object_r:cups_home_t,s0)
 
 /etc/alchemist/namespace/printconf(/.*)? gen_context(system_u:object_r:cupsd_rw_etc_t,s0)
 

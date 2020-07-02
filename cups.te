@@ -32,6 +32,9 @@ type cupsd_etc_t;
 typealias cupsd_etc_t alias hplip_etc_t;
 files_config_file(cupsd_etc_t)
 
+type cups_home_t;
+userdom_user_home_content(cups_home_t);
+
 type cupsd_initrc_exec_t;
 init_script_file(cupsd_initrc_exec_t)
 
@@ -149,6 +152,8 @@ allow cupsd_t cupsd_etc_t:dir manage_dir_perms;
 allow cupsd_t cupsd_etc_t:file { map rename setattr_file_perms };
 read_files_pattern(cupsd_t, cupsd_etc_t, cupsd_etc_t)
 read_lnk_files_pattern(cupsd_t, cupsd_etc_t, cupsd_etc_t)
+
+read_files_pattern(cupsd_t, cups_home_t, cups_home_t)
 
 manage_files_pattern(cupsd_t, cupsd_interface_t, cupsd_interface_t)
 can_exec(cupsd_t, cupsd_interface_t)

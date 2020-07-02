@@ -447,3 +447,38 @@ interface(`cups_filetrans_named_content',`
 	corecmd_bin_filetrans($1, cupsd_rw_etc_t, dir, "inf")
 	files_var_filetrans($1, cupsd_rw_etc_t, dir, "cups")
 ')
+
+######################################
+## <summary>
+##  Transition to cups named admin home content
+## </summary>
+## <param name="domain">
+##  <summary>
+##      Domain allowed access.
+##  </summary>
+## </param>
+#
+interface(`cups_filetrans_admin_home_content',`
+    gen_require(`
+        type cups_home_t;
+    ')
+
+    userdom_admin_home_dir_filetrans($1, cups_home_t, dir, ".cups")
+')
+######################################
+## <summary>
+##  Transition to cups named home content
+## </summary>
+## <param name="domain">
+##  <summary>
+##      Domain allowed access.
+##  </summary>
+## </param>
+#
+interface(`cups_filetrans_home_content',`
+    gen_require(`
+        type cups_home_t;
+    ')
+
+    userdom_user_home_dir_filetrans($1, cups_home_t, dir, ".cups")
+')
