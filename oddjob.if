@@ -87,6 +87,24 @@ interface(`oddjob_dbus_chat',`
 	allow oddjob_t $1:dbus send_msg;
 ')
 
+########################################
+## <summary>
+##	Allow oddjob noatsecure
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`oddjob_noatsecure',`
+	gen_require(`
+		type oddjob_t;
+	')
+
+    allow $1 oddjob_t:process { noatsecure };
+')
+
 ######################################
 ## <summary>
 ##	Send a SIGCHLD signal to oddjob.
