@@ -67,6 +67,7 @@ optional_policy(`
 
 optional_policy(`
 	apache_dbus_chat(oddjob_t)
+	apache_domtrans(oddjob_t)
 ')
 
 optional_policy(`
