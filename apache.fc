@@ -180,6 +180,7 @@ ifdef(`distro_debian', `
 /var/run/nginx.*            gen_context(system_u:object_r:httpd_var_run_t,s0)
 /var/opt/rh/rh-nginx18/run/nginx(/.*)?            gen_context(system_u:object_r:httpd_var_run_t,s0)
 /var/run/php-fpm(/.*)?      gen_context(system_u:object_r:httpd_var_run_t,s0)
+/var/run/sympa(/.*)?      gen_context(system_u:object_r:httpd_var_run_t,s0)
 /var/run/thttpd\.pid    -- gen_context(system_u:object_r:httpd_var_run_t,s0)
 /var/run/wsgi.*			-s	gen_context(system_u:object_r:httpd_var_run_t,s0)
 /var/run/user/apache(/.*)?		gen_context(system_u:object_r:httpd_tmp_t,s0)
