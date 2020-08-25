@@ -47,6 +47,9 @@ init_script_file(nagios_initrc_exec_t)
 type nagios_log_t;
 logging_log_file(nagios_log_t)
 
+type nagios_cmd_t;
+files_type(nagios_cmd_t)
+
 type nagios_tmp_t;
 files_tmp_file(nagios_tmp_t)
 
@@ -152,7 +155,7 @@ files_tmp_filetrans(nagios_t, nagios_tmp_t, { dir file })
 manage_files_pattern(nagios_t, nagios_var_run_t, nagios_var_run_t)
 files_pid_filetrans(nagios_t, nagios_var_run_t, file)
 
-manage_fifo_files_pattern(nagios_t, nagios_spool_t, nagios_spool_t)
+manage_fifo_files_pattern(nagios_t, nagios_cmd_t, nagios_cmd_t)
 manage_files_pattern(nagios_t, nagios_spool_t, nagios_spool_t)
 manage_sock_files_pattern(nagios_t, nagios_spool_t, nagios_spool_t)
 files_spool_filetrans(nagios_t, nagios_spool_t, { file fifo_file })

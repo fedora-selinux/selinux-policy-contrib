@@ -30,6 +30,8 @@
 /var/spool/nagios(/.*)?					gen_context(system_u:object_r:nagios_spool_t,s0)
 /var/spool/icinga(/.*)?					gen_context(system_u:object_r:nagios_spool_t,s0)
 
+/var/spool/nagios/cmd/nagios.cmd					gen_context(system_u:object_r:nagios_cmd_t,s0)
+
 ifdef(`distro_debian',`
 /usr/sbin/nagios				--	gen_context(system_u:object_r:nagios_exec_t,s0)
 ')

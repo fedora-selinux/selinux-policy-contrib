@@ -334,3 +334,21 @@ interface(`nagios_unconfined_signull',`
 
 	allow $1 nagios_unconfined_plugin_t:process signull;
 ')
+
+########################################
+## <summary>
+##      Allow the domain to send command to nagios with the nagios.cmd pipe.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`nagios_send_cmd',`
+	gen_require(`
+		type nagios_cmd_t;
+	')
+
+	allow $1 nagios_cmd_t:fifo rw_fifo_file_perms;
+')
