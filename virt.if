@@ -137,13 +137,15 @@ template(`virt_driver_template',`
     allow $1_t virt_var_run_t:dir { create search_dir_perms };
     manage_dirs_pattern($1_t, $1_var_run_t, $1_var_run_t)
     manage_files_pattern($1_t, $1_var_run_t, $1_var_run_t)
-    files_pid_filetrans($1_t, $1_var_run_t, { dir file } )
-    filetrans_pattern($1_t, virt_var_run_t, $1_var_run_t, { dir file } )
+    manage_sock_files_pattern($1_t, virt_var_run_t, $1_var_run_t)
+    files_pid_filetrans($1_t, $1_var_run_t, { dir file sock_file } )
+    filetrans_pattern($1_t, virt_var_run_t, $1_var_run_t, { dir file sock_file } )
 
     read_files_pattern($1_t, virt_etc_t, virt_etc_t)
     manage_dirs_pattern($1_t, virt_etc_rw_t, virt_etc_rw_t)
     manage_files_pattern($1_t, virt_etc_rw_t, virt_etc_rw_t)
 
+    allow virt_driver_domain virtqemud_t:unix_stream_socket connectto;
     read_files_pattern(virt_driver_domain, virtqemud_t, virtqemud_t)
 
     kernel_dgram_send($1_t)
