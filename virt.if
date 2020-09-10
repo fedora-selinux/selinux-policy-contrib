@@ -246,7 +246,6 @@ interface(`virt_exec',`
 	can_exec($1, virt_driver_executable)
 ')
 
-
 #######################################
 ## <summary>
 ##	Connect to virt over a unix domain stream socket.
@@ -259,31 +258,14 @@ interface(`virt_exec',`
 #
 interface(`virt_stream_connect',`
 	gen_require(`
+		attribute virt_driver_domain;
+		attribute virt_driver_var_run;	
 		type virtd_t, virt_var_run_t;
 	')
 
 	files_search_pids($1)
 	stream_connect_pattern($1, virt_var_run_t, virt_var_run_t, virtd_t)
-')
-
-#######################################
-## <summary>
-##    Connect to virt driver over a unix domain stream socket.
-## </summary>
-## <param name="domain">
-##    <summary>
-##    Domain allowed access.
-##    </summary>
-## </param>
-#
-interface(`virt_driver_stream_connect',`
-    gen_require(`
-      attribute virt_driver_domain;
-      attribute virt_driver_var_run;
-    ')
-
-    files_search_pids($1)
-    stream_connect_pattern($1, virt_driver_var_run, virt_driver_var_run, virt_driver_domain)
+	stream_connect_pattern($1, virt_driver_var_run, virt_driver_var_run, virt_driver_domain)
 ')
 
 #######################################
@@ -1703,6 +1685,7 @@ interface(`virt_admin',`
 	virt_stream_connect_svirt($1)
 	virt_stream_connect($1)
 ')
+
 #######################################
 ## <summary>
 ##  Getattr on virt executable.
@@ -1721,7 +1704,6 @@ interface(`virt_default_capabilities',`
 	typeattribute $1 sandbox_caps_domain;
 ')
 
-
 ########################################
 ## <summary>
 ##      Send and receive messages from
@@ -1735,33 +1717,16 @@ interface(`virt_default_capabilities',`
 #
 interface(`virt_dbus_chat',`
         gen_require(`
+                attribute virt_driver_domain;
                 type virtd_t;
                 class dbus send_msg;
         ')
 
         allow $1 virtd_t:dbus send_msg;
         allow virtd_t $1:dbus send_msg;
-        ps_process_pattern(virtd_t, $1)
-')
-
-## <summary>
-##      Send and receive messages from
-##      virt drivers over dbus.
-## </summary>
-## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
-## </param>
-#
-interface(`virt_driver_dbus_chat',`
-        gen_require(`
-                attribute virt_driver_domain;
-                class dbus send_msg;
-        ')
-
         allow $1 virt_driver_domain:dbus send_msg;
         allow virt_driver_domain $1:dbus send_msg;
+        ps_process_pattern(virtd_t, $1)
         ps_process_pattern(virt_driver_domain, $1)
 ')
 
