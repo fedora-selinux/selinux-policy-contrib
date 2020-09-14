@@ -1698,8 +1698,7 @@ manage_dirs_pattern(virtinterfaced_t, virt_var_lib_t, virt_var_lib_t)
 manage_files_pattern(virtinterfaced_t, virt_var_lib_t, virt_var_lib_t)
 manage_sock_files_pattern(virtinterfaced_t, virt_var_lib_t, virt_var_lib_t)
 files_var_lib_filetrans(virtinterfaced_t, virt_var_lib_t, { file dir })
-
-#filetrans_pattern(virtinterfaced_t, virt_var_run_t, virtinterfaced_var_run_t, dir, "interfac(e)")
+<<<<<<< Updated upstream
 
 kernel_read_network_state(virtinterfaced_t)
 
@@ -1733,6 +1732,41 @@ kernel_rw_net_sysctls(virtnetworkd_t)
 
 corenet_rw_tun_tap_dev(virtnetworkd_t)
 
+=======
+
+kernel_read_network_state(virtinterfaced_t)
+
+corecmd_exec_bin(virtinterfaced_t)
+
+fs_getattr_all_fs(virtinterfaced_t)
+
+modutils_read_module_config(virtinterfaced_t)
+
+sysnet_manage_config(virtinterfaced_t)
+
+userdom_read_all_users_state(virtinterfaced_t)
+
+#######################################
+#
+# virtnetworkd local policy
+#
+allow virtnetworkd_t self:capability { kill sys_ptrace };
+allow virtnetworkd_t self:netlink_netfilter_socket create_socket_perms;
+allow virtnetworkd_t self:process setcap;
+allow virtnetworkd_t self:tun_socket { create relabelfrom relabelto };
+
+manage_lnk_files_pattern(virtnetworkd_t, virt_etc_rw_t, virt_etc_rw_t)
+
+manage_dirs_pattern(virtnetworkd_t, virt_var_lib_t, virt_var_lib_t)
+manage_files_pattern(virtnetworkd_t, virt_var_lib_t, virt_var_lib_t)
+
+kernel_read_network_state(virtnetworkd_t)
+kernel_request_load_module(virtnetworkd_t)
+kernel_rw_net_sysctls(virtnetworkd_t)
+
+corenet_rw_tun_tap_dev(virtnetworkd_t)
+
+>>>>>>> Stashed changes
 dev_rw_sysfs(virtnetworkd_t)
 
 sysnet_read_config(virtnetworkd_t)
@@ -1758,11 +1792,19 @@ allow virtnodedevd_t self:capability sys_admin;
 allow virtnodedevd_t self:netlink_generic_socket create_socket_perms;
 
 kernel_request_load_module(virtnodedevd_t)
+<<<<<<< Updated upstream
 
 dev_rw_mtrr(virtnodedevd_t)
 
 miscfiles_read_hwdata(virtnodedevd_t)
 
+=======
+
+dev_rw_mtrr(virtnodedevd_t)
+
+miscfiles_read_hwdata(virtnodedevd_t)
+
+>>>>>>> Stashed changes
 optional_policy(`
         udev_read_pid_files(virtnodedevd_t)
 ')
@@ -1773,7 +1815,10 @@ optional_policy(`
 #
 allow virtnwfilterd_t self:capability net_raw;
 allow virtnwfilterd_t self:netlink_netfilter_socket create_socket_perms;
+<<<<<<< Updated upstream
+=======
 allow virtnwfilterd_t self:netlink_rdma_socket create_socket_perms;
+>>>>>>> Stashed changes
 allow virtnwfilterd_t self:packet_socket { bind create getopt ioctl map setopt };
 allow virtnwfilterd_t self:rawip_socket create_socket_perms;
 
@@ -1786,7 +1831,11 @@ corecmd_exec_bin(virtnwfilterd_t)
 manage_dirs_pattern(virtnwfilterd_t, virtnetworkd_var_run_t, virtnetworkd_var_run_t)
 manage_files_pattern(virtnwfilterd_t, virtnetworkd_var_run_t, virtnetworkd_var_run_t)
 
+<<<<<<< Updated upstream
 manage_files_pattern(virtnwfilterd_t, virt_var_run_t, virtlogd_var_run_t)
+=======
+manage_files_pattern(virtnwfilterd_t, virt_var_run_t, virt_var_run_t)
+>>>>>>> Stashed changes
 
 optional_policy(`
         dnsmasq_domtrans(virtnwfilterd_t)
@@ -1827,7 +1876,6 @@ allow virtqemud_t virt_cache_t:file { relabelfrom relabelto };
 
 allow virtqemud_t virtlogd_t:fifo_file rw_inherited_fifo_file_perms;
 allow virtqemud_t virtlogd_t:unix_stream_socket connectto;
-manage_sock_files_pattern(virtqemud_t, virtlogd_var_run_t, virtlogd_var_run_t)
 
 allow virtqemud_t virt_driver_domain:unix_stream_socket connectto;
 
@@ -1857,8 +1905,49 @@ manage_sock_files_pattern(virtqemud_t, qemu_var_run_t, qemu_var_run_t)
 
 manage_files_pattern(virtqemud_t, virt_content_t, virt_content_t)
 
-allow virtqemud_t virt_var_run_t:file map;
-manage_sock_files_pattern(virtqemud_t, virt_var_run_t, virt_var_run_t)
+<<<<<<< Updated upstream
+manage_dirs_pattern(virtqemud_t, virt_var_lib_t, virt_var_lib_t)
+manage_files_pattern(virtqemud_t, virt_var_lib_t, virt_var_lib_t)
+
+kernel_read_all_proc(virtqemud_t)
+kernel_request_load_module(virtqemud_t)
+
+corecmd_exec_bin(virtqemud_t)
+corecmd_exec_shell(virtqemud_t)
+
+corenet_rw_tun_tap_dev(virtqemud_t)
+corenet_tcp_bind_generic_node(virtqemud_t)
+corenet_tcp_bind_vnc_port(virtqemud_t)
+
+dev_read_cpuid(virtqemud_t)
+dev_read_sysfs(virtqemud_t)
+dev_read_urand(virtqemud_t)
+dev_relabel_all_dev_nodes(virtqemud_t)
+dev_rw_kvm(virtqemud_t)
+dev_rw_vhost(virtqemud_t)
+
+files_mounton_non_security(virtqemud_t)
+files_read_all_symlinks(virtqemud_t)
+
+fs_getattr_hugetlbfs(virtqemud_t)
+fs_manage_hugetlbfs_dirs(virtqemud_t)
+fs_manage_cgroup_dirs(virtqemud_t)
+fs_manage_cgroup_files(virtqemud_t)
+fs_manage_tmpfs_chr_files(virtqemud_t)
+fs_manage_tmpfs_dirs(virtqemud_t)
+fs_manage_tmpfs_symlinks(virtqemud_t)
+fs_mount_tmpfs(virtqemud_t)
+fs_read_nsfs_files(virtqemud_t)
+fs_relabel_tmpfs_chr_file(virtqemud_t)
+
+init_stream_connect(virtqemud_t)
+init_stream_connect_script(virtqemud_t)
+
+seutil_read_default_contexts(virtqemud_t)
+seutil_read_file_contexts(virtqemud_t)
+
+=======
+manage_sock_files_pattern(virtqemud_t, virtlogd_var_run_t, virtlogd_var_run_t)
 
 manage_dirs_pattern(virtqemud_t, virt_var_lib_t, virt_var_lib_t)
 manage_files_pattern(virtqemud_t, virt_var_lib_t, virt_var_lib_t)
@@ -1901,6 +1990,7 @@ seutil_read_default_contexts(virtqemud_t)
 seutil_read_file_contexts(virtqemud_t)
 
 sysnet_exec_ifconfig(virtqemud_t)
+>>>>>>> Stashed changes
 sysnet_manage_config(virtqemud_t)
 
 userdom_read_all_users_state(virtqemud_t)
