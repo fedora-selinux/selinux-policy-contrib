@@ -1,0 +1,143 @@
+## <summary>policy for gcl</summary>
+
+########################################
+## <summary>
+##	Execute a domain transition to run gcl.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`gcl_domtrans',`
+	gen_require(`
+		type gcl_t;
+		type gcl_exec_t;
+	')
+
+	domtrans_pattern($1,gcl_exec_t,gcl_t)
+')
+
+
+########################################
+## <summary>
+##	Do not audit attempts to read,
+##	gcl tmp files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain to not audit.
+##	</summary>
+## </param>
+#
+interface(`gcl_dontaudit_read_tmp_files',`
+	gen_require(`
+		type gcl_tmp_t;
+	')
+
+	dontaudit $1 gcl_tmp_t:file read_file_perms;
+')
+
+########################################
+## <summary>
+##	Allow domain to read, gcl tmp files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain to not audit.
+##	</summary>
+## </param>
+#
+interface(`gcl_read_tmp_files',`
+	gen_require(`
+		type gcl_tmp_t;
+	')
+
+	allow $1 gcl_tmp_t:file read_file_perms;
+')
+
+########################################
+## <summary>
+##	Allow domain to manage gcl tmp files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain to not audit.
+##	</summary>
+## </param>
+#
+interface(`gcl_manage_tmp',`
+	gen_require(`
+		type gcl_tmp_t;
+	')
+
+	manage_dirs_pattern($1,gcl_tmp_t,gcl_tmp_t)
+	manage_files_pattern($1,gcl_tmp_t,gcl_tmp_t)
+	manage_lnk_files_pattern($1,gcl_tmp_t,gcl_tmp_t)
+')
+
+########################################
+## <summary>
+##	Execute gcl in the gcl domain, and
+##	allow the specified role the gcl domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	The role to be allowed the gcl domain.
+##	</summary>
+## </param>
+## <param name="terminal">
+##	<summary>
+##	The type of the role's terminal.
+##	</summary>
+## </param>
+#
+interface(`gcl_run',`
+	gen_require(`
+		type gcl_t;
+	')
+
+	gcl_domtrans($1)
+	role $2 types gcl_t;
+	dontaudit gcl_t $3:chr_file rw_term_perms;
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	an gcl environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	The role to be allowed to manage the gcl domain.
+##	</summary>
+## </param>
+## <param name="terminal">
+##	<summary>
+##	The type of the user terminal.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`gcl_admin',`
+	gen_require(`
+		type gcl_t;
+	')
+
+	allow $1 gcl_t:process { ptrace signal_perms getattr };
+	read_files_pattern($1, gcl_t, gcl_t)
+
+	gcl_manage_tmp($1)
+')
